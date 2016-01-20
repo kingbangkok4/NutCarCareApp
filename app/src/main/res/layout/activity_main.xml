@@ -13,21 +13,22 @@
         android:id="@+id/textView"
         android:layout_centerHorizontal="true"
         android:textColor="#cc0066"
-        android:textSize="35dp"
-        android:layout_marginTop="20dp" />
+        android:textSize="50dp"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold|italic" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:id="@+id/editText"
+        android:id="@+id/editTextUsername"
         android:hint="Enter Name"
         android:focusable="true"
         android:textColorHighlight="#ff7eff15"
         android:textColorHint="#ffff25e6"
         android:background="#fff"
-        android:layout_above="@+id/editText2"
+        android:layout_above="@+id/editTextPassword"
         android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/editText2" />
+        android:layout_alignEnd="@+id/editTextPassword" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -37,7 +38,7 @@
         android:layout_below="@+id/textView"
         android:layout_alignParentStart="true"
         android:layout_marginTop="20dp"
-        android:layout_above="@+id/editText"
+        android:layout_above="@+id/editTextUsername"
         android:layout_marginBottom="10dp" />
 
     <EditText
@@ -45,10 +46,10 @@
         android:layout_height="50dp"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/editText2"
+        android:id="@+id/editTextPassword"
         android:textColorHint="#ffff299f"
         android:hint="Password"
-        android:layout_above="@+id/button"
+        android:layout_above="@+id/btnLogin"
         android:layout_alignEnd="@+id/imageView"
         android:layout_alignParentStart="true"
         android:background="#fff"
@@ -58,12 +59,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="login"
-        android:id="@+id/button"
+        android:id="@+id/btnLogin"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_alignEnd="@+id/editText2"
+        android:layout_alignEnd="@+id/editTextPassword"
         android:background="#ff6633"
         android:layout_marginTop="50dp"
-        android:layout_marginBottom="100dp" />
+        android:layout_marginBottom="100dp"
+        android:textStyle="bold" />
 
 </RelativeLayout>
