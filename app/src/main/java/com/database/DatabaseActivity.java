@@ -28,8 +28,8 @@ import android.widget.ListView;
 
 @SuppressLint("Instantiatable")
 public class DatabaseActivity extends SQLiteOpenHelper {
-	private static String DB_NAME = "curtain.sqlite";
-	private static String TABLE_PROFILE = "profile";
+	private static String DB_NAME = "db_nutcarcare.sqlite";
+	private static String TABLE_LOGIN = "tb_login";
 	private static Integer BUFFER_SIZE = 128;
 	private SQLiteDatabase myDataBase;
 	private final Context context;
@@ -97,53 +97,58 @@ public class DatabaseActivity extends SQLiteOpenHelper {
 
 	}
 
-	public String UpdateProfile(String name, String address, String phone, String email) {
+	public void InsertLogin(String username, String password, String type) {
 		SQLiteDatabase db;
 		try {
 			db = this.getReadableDatabase(); // Read Data
-			String strSQL = "SELECT * FROM " + TABLE_PROFILE +" ";
+			String strSQL = "SELECT * FROM " + TABLE_LOGIN +" ";
 			Cursor cursor = db.rawQuery(strSQL, null);
 			Integer count = cursor.getCount();
 			cursor.close();
 			db = this.getWritableDatabase(); // Update or Insert to database
 			if (count > 0) {
-				String strSQLInsert = "UPDATE " + TABLE_PROFILE+ " "
-						+ "SET name = '" + name + "', address = '" + address+ "', phone = '"+phone+"', email = '"+email+"' ";
+				String strSQLInsert = "DELETE FROM " + TABLE_LOGIN+ " ";
 				db.execSQL(strSQLInsert);
-				db.close();
-				return "Update Profile สำเร็จ";
-			} else {
-				String strSQLInsert = "INSERT INTO " + TABLE_PROFILE
-						+ "(name, address, phone, email) VALUES('" + name + "', '" + address
-						+ "', '"+phone+"', '"+email+"') ";
-				db.execSQL(strSQLInsert);
-				db.close();
-				return "Update Profile สำเร็จ";
 			}
+			String strSQLInsert = "INSERT INTO " + TABLE_LOGIN
+					+ "(username, password, type) VALUES('" + username + "', '" + password
+					+ "', '"+type+"') ";
+			db.execSQL(strSQLInsert);
+			db.close();
 		} catch (Exception e) {
 			System.out.print(e.getMessage());
-			return e.getMessage();
 		}
 	}
 
-	public ArrayList<HashMap<String, String>> GetProfile() {
+	public void DeleleLogin() {
+		SQLiteDatabase db;
+		try {
+			db = this.getWritableDatabase(); // Update Delete or Insert to database
+			String strSQLInsert = "DELETE FROM " + TABLE_LOGIN+ " ";
+			db.execSQL(strSQLInsert);
+			db.close();
+		} catch (Exception e) {
+			System.out.print(e.getMessage());
+		}
+	}
+
+	public ArrayList<HashMap<String, String>> CheckLogin() {
 		try {
 			ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
 			HashMap<String, String> map;
 			SQLiteDatabase db;
 			db = this.getReadableDatabase(); // Read Data
-			String strSQL = "SELECT name, address, phone, email FROM "
-					+ TABLE_PROFILE+" LIMIT 1 ";
+			String strSQL = "SELECT id, username, password, type FROM "
+					+ TABLE_LOGIN+" LIMIT 1 ";
 			Cursor cursor = db.rawQuery(strSQL, null);
 			if (cursor != null) {
 				if (cursor.moveToFirst()) {
 					do {
-						String strAmount = cursor.getString(2);
 						map = new HashMap<String, String>();
-						map.put("name", cursor.getString(0));
-						map.put("address", cursor.getString(1));
-						map.put("phone", cursor.getString(2));
-						map.put("email", cursor.getString(3));
+						map.put("id", cursor.getString(0));
+						map.put("username", cursor.getString(1));
+						map.put("password", cursor.getString(2));
+						map.put("type", cursor.getString(3));
 						MyArrList.add(map);
 					} while (cursor.moveToNext());
 				}
