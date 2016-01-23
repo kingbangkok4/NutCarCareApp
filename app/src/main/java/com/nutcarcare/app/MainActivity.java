@@ -94,6 +94,11 @@ public class MainActivity extends Activity {
                 Boolean status = OnLogin();
                 if(status) {
                     Toast.makeText(getApplicationContext(), strError, Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(MainActivity.this, ServiceActivity.class);
+                    i.putExtra("username", strUsername);
+                    i.putExtra("password", strPassword);
+                    i.putExtra("type", strType);
+                    startActivity(i);
                 }
                 else{
                     Toast.makeText(getApplicationContext(), strError,Toast.LENGTH_SHORT).show();
