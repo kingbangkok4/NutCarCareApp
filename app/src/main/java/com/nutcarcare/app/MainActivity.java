@@ -2,35 +2,76 @@ package com.nutcarcare.app;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.os.Bundle;
-
+import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.media.ExifInterface;
+import android.net.Uri;
+import android.os.Environment;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.os.StrictMode;
+import android.provider.MediaStore;
+import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.http.Http;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.Closeable;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
-import com.http.Http;
-
-public class MainActivity extends Activity  {
-    Button btLogin;
-    EditText txtUsername, txtPassword;
-    Http http = new Http();
-
+public class MainActivity extends Activity {
+    private Button btLogin;
+    private EditText txtUsername, txtPassword;
+    private Http http = new Http();
+    private String strUsername = "";
+    private String strPassword = "";
+    private String strType = "";
+    private String strError = "Unknow Status!";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,65 +91,55 @@ public class MainActivity extends Activity  {
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(txtUsername.getText().toString().equals("admin") &&
-                        txtPassword.getText().toString().equals("1234")) {
-                    Toast.makeText(getApplicationContext(), "Redirecting...",Toast.LENGTH_SHORT).show();
+                Boolean status = OnLogin();
+                if(status) {
+                    Toast.makeText(getApplicationContext(), strError, Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    Toast.makeText(getApplicationContext(), "Wrong Credentials",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), strError,Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
     }
 
-    private  void  OnLogin(){
-        final AlertDialog.Builder ad = new AlertDialog.Builder(this);
-        String url = getString(R.string.url_localhost);
+    private boolean OnLogin(){
+/*        final AlertDialog.Builder ad = new AlertDialog.Builder(this);*/
+        Boolean ststusLogin = false;
+        String Error = "1";
+        String url = getString(R.string.url_localhost)+ "checkLoginJson.php";
+       // Paste Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("status", "login"));
-        params.add(new BasicNameValuePair("strUser", txtUsername.getText()
+        params.add(new BasicNameValuePair("username", txtUsername.getText()
                 .toString().trim()));
-        params.add(new BasicNameValuePair("strPass", txtPassword.getText()
+        params.add(new BasicNameValuePair("password", txtPassword.getText()
                 .toString().trim()));
-
-        String resultServer = http.getHttpPost(url, params);
-
-        /*** Default Value ***/
-        String strStatusID = "0";
-        String strType = "0";
-        String strError = "Unknow Status!";
-
-        JSONObject c;
         try {
-            c = new JSONObject(resultServer);
-            strStatusID = c.getString("StatusID");
-            strType = c.getString("MemberID");
-            strError = c.getString("Error");
+            JSONArray data = new JSONArray(http.getJSONUrl(url, params));
+            if(data.length() > 0) {
+                JSONObject c = data.getJSONObject(0);
+                Error = c.getString("error");
+                if("0".equals(Error)){
+                    strUsername = c.getString("username");
+                    strPassword = c.getString("password");
+                    strType = c.getString("type");
+                }
+            }
 
+            if("0".equals(Error)){
+                ststusLogin = true;
+                strError = "รหัสผ่านถูกต้อง...";
+            }else{
+                ststusLogin = false;
+                strError = "รหัสผ่านไม่ถูกต้อง";
+            }
         } catch (JSONException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+            ststusLogin = false;
+            strError = e.getMessage();
         }
-
-        // Prepare Login
-        if (strStatusID.equals("0")) {
-            // Dialog
-            ad.setTitle("Error! ");
-            ad.setIcon(android.R.drawable.btn_star_big_on);
-            ad.setPositiveButton("Close", null);
-            ad.setMessage(strError);
-            ad.show();
-            txtUsername.setText("");
-            txtUsername.setText("");
-        } else {
-            Toast.makeText(MainActivity.this, "Login OK",
-                    Toast.LENGTH_SHORT).show();
-            Intent newActivity = new Intent(MainActivity.this,
-                    ServiceActivity.class);
-            newActivity.putExtra("Type", strType);
-            startActivity(newActivity);
-        }
+        return ststusLogin;
     }
 
 
