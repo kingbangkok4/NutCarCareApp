@@ -1,6 +1,7 @@
 package com.nutcarcare.app;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -124,7 +126,12 @@ public class ServiceActivity extends Activity {
     }
 
     private void GoToSubmit() {
-
+        String strService = strDetailService.toString();
+        Intent i = new Intent(ServiceActivity.this, CustomerActivity.class);
+        i.putExtra("MyArrList", MyArrList);
+        i.putExtra("sumTotal", sumTotal);
+        i.putExtra("strService", strService);
+        startActivity(i);
     }
 
 }
