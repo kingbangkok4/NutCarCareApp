@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
@@ -23,14 +25,20 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.LinearLayout;
 
+import com.database.DatabaseActivity;
+
 /**
  * Created by Administrator on 1/20/2016.
  */
 public class IntroActivity extends Activity {
+    private DatabaseActivity myDb = new DatabaseActivity(this);
+    ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
+    HashMap<String, String> map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        myDb.openDatabase();
         setContentView(R.layout.activity_intro);
         LinearLayout llProgress = (LinearLayout) findViewById(R.id.ll_progress);
         try {
@@ -46,9 +54,20 @@ public class IntroActivity extends Activity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(IntroActivity.this,
-                        MainActivity.class);
-                startActivity(intent);
+                MyArrList = myDb.CheckLogin();
+                if (MyArrList != null) {
+                    if(MyArrList.size() > 0){
+                        Intent i = new Intent(IntroActivity.this, ServiceActivity.class);
+                        i.putExtra("MyArrList", MyArrList);
+                        startActivity(i);
+                    }else {
+                        Intent i = new Intent(IntroActivity.this, MainActivity.class);
+                        startActivity(i);
+                    }
+                } else {
+                    Intent i = new Intent(IntroActivity.this, MainActivity.class);
+                    startActivity(i);
+                }
                 finish();
             }
         }, 3000);

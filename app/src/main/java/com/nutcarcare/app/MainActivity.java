@@ -40,6 +40,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.database.DatabaseActivity;
 import com.http.Http;
 
 import org.apache.http.NameValuePair;
@@ -65,12 +66,15 @@ import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends Activity {
+    private DatabaseActivity myDb = new DatabaseActivity(this);
+    ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
+    HashMap<String, String> map;
     private Button btLogin;
     private EditText txtUsername, txtPassword;
     private Http http = new Http();
-    private String strUsername = "";
+/*    private String strUsername = "";
     private String strPassword = "";
-    private String strType = "";
+    private String strType = "";*/
     private String strError = "Unknow Status!";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,9 +99,7 @@ public class MainActivity extends Activity {
                 if(status) {
                     Toast.makeText(getApplicationContext(), strError, Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(MainActivity.this, ServiceActivity.class);
-                    i.putExtra("username", strUsername);
-                    i.putExtra("password", strPassword);
-                    i.putExtra("type", strType);
+                    i.putExtra("MyArrList", MyArrList);
                     startActivity(i);
                 }
                 else{
@@ -125,9 +127,11 @@ public class MainActivity extends Activity {
                 JSONObject c = data.getJSONObject(0);
                 Error = c.getString("error");
                 if("0".equals(Error)){
-                    strUsername = c.getString("username");
-                    strPassword = c.getString("password");
-                    strType = c.getString("type");
+                    map = new HashMap<String, String>();
+                    map.put("username", c.getString("username"));
+                    map.put("password", c.getString("password"));
+                    map.put("type", c.getString("type"));
+                    MyArrList.add(map);
                 }
             }
 

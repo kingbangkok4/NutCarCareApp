@@ -9,6 +9,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by Administrator on 1/20/2016.
@@ -21,11 +23,23 @@ public class ServiceActivity extends Activity {
     private Double sumTotal = 0.00;
     private StringBuilder strDetailService = new StringBuilder();
     private DecimalFormat decimalFormat = new DecimalFormat("#,###,###.##");
+    ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
+    ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service);
+
+        Bundle extras = getIntent().getExtras();
+        // เช็คว่ามีค่าที่ส่งมาจากหน้าอื่นหรือไม่ถ้ามีจะไม่เท่ากับ null
+        if (extras != null) {
+            tmpMyArrList = (ArrayList<HashMap<String, String>>) extras
+                    .getSerializable("MyArrList");
+            if (tmpMyArrList != null) {
+                MyArrList = tmpMyArrList;
+            }
+        }
 
         ck1 = (CheckBox) findViewById(R.id.checkBox1);
         ck2 = (CheckBox) findViewById(R.id.checkBox2);

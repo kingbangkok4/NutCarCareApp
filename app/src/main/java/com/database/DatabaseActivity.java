@@ -145,7 +145,7 @@ public class DatabaseActivity extends SQLiteOpenHelper {
 				if (cursor.moveToFirst()) {
 					do {
 						map = new HashMap<String, String>();
-						map.put("id", cursor.getString(0));
+						/*map.put("id", cursor.getString(0));*/
 						map.put("username", cursor.getString(1));
 						map.put("password", cursor.getString(2));
 						map.put("type", cursor.getString(3));
