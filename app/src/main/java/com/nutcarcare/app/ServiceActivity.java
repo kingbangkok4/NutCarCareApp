@@ -126,6 +126,7 @@ public class ServiceActivity extends Activity {
     }
 
     private void GoToSubmit() {
+        SumTotal();
         String strService = strDetailService.toString();
         Intent i = new Intent(ServiceActivity.this, CustomerActivity.class);
         i.putExtra("MyArrList", MyArrList);
