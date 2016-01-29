@@ -132,6 +132,8 @@ public class MainActivity extends Activity {
                     map.put("password", c.getString("password"));
                     map.put("type", c.getString("type"));
                     MyArrList.add(map);
+
+                    myDb.InsertLogin(MyArrList.get(0).get("username"),MyArrList.get(0).get("password"),MyArrList.get(0).get("type"));
                 }
             }
 
@@ -159,7 +161,7 @@ public class MainActivity extends Activity {
         return true;
     }
 
-    @Override
+    /*@Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -172,5 +174,5 @@ public class MainActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 }
