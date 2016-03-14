@@ -24,20 +24,18 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="ชื่อลูกค้า"
-        android:id="@+id/textView7"
-        android:layout_marginTop="20dp" />
+        android:id="@+id/textView7" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="25dp">
         <EditText
-            android:layout_width="558dp"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:id="@+id/editTextCustomer"
             android:background="#fff" />
         <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="39dp"
+            android:layout_width="22dp"
             android:layout_height="match_parent"
             android:id="@+id/btnSearch"
             android:layout_gravity="right"
@@ -50,8 +48,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="เบอร์โทรศัพท์"
-        android:id="@+id/textView8"
-        android:layout_marginTop="20dp" />
+        android:id="@+id/textView8" />
 
     <EditText
         android:layout_width="match_parent"
@@ -65,8 +62,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="อีเมล์"
-        android:id="@+id/textView9"
-        android:layout_marginTop="20dp" />
+        android:id="@+id/textView9" />
 
     <EditText
         android:layout_width="match_parent"
@@ -80,8 +76,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="ป้ายทะเบียน"
-        android:id="@+id/textView10"
-        android:layout_marginTop="20dp" />
+        android:id="@+id/textView10" />
 
     <EditText
         android:layout_width="match_parent"
@@ -95,8 +90,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="ยี่ห้อ"
-        android:id="@+id/textView11"
-        android:layout_marginTop="20dp" />
+        android:id="@+id/textView11" />
 
     <EditText
         android:layout_width="match_parent"
@@ -109,9 +103,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="สี"
+        android:id="@+id/textView14" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextColor"
+        android:inputType="text"
+        android:background="#fff" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="ตำหนิ"
+        android:id="@+id/textView15" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editTextScar"
+        android:inputType="text"
+        android:background="#fff" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="ประเภทรถ"
-        android:id="@+id/textView12"
-        android:layout_marginTop="20dp" />
+        android:id="@+id/textView12" />
 
     <Spinner
         android:layout_width="match_parent"
@@ -121,9 +142,9 @@
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:text="รูปรถ"
-        android:id="@+id/button2"
+        android:id="@+id/btnPictureCare"
         android:background="#ff6600"
         android:layout_below="@+id/editTextTotal"
         android:layout_alignEnd="@+id/editTextTotal"
@@ -131,9 +152,9 @@
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:text="บันทึก"
-        android:id="@+id/button"
+        android:id="@+id/btnSave"
         android:background="#33ff00"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true" />

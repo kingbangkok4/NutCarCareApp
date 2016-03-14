@@ -18,8 +18,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.StrictMode;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -72,10 +70,11 @@ public class MainActivity extends Activity {
     private Button btLogin;
     private EditText txtUsername, txtPassword;
     private Http http = new Http();
-/*    private String strUsername = "";
-    private String strPassword = "";
-    private String strType = "";*/
+    /*    private String strUsername = "";
+        private String strPassword = "";
+        private String strType = "";*/
     private String strError = "Unknow Status!";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,35 +86,45 @@ public class MainActivity extends Activity {
             StrictMode.setThreadPolicy(policy);
         }
 
-        btLogin=(Button)findViewById(R.id.btnLogin);
-        txtUsername=(EditText)findViewById(R.id.editTextUsername);
-        txtPassword=(EditText)findViewById(R.id.editTextPassword);
+        btLogin = (Button) findViewById(R.id.btnLogin);
+        txtUsername = (EditText) findViewById(R.id.editTextUsername);
+        txtPassword = (EditText) findViewById(R.id.editTextPassword);
 
 
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+              /*  // TestศToast.makeText(getApplicationContext(), strError, Toast.LENGTH_SHORT).show();
+                map = new HashMap<String, String>();
+                map.put("username", "staff");
+                map.put("password", "1234");
+                map.put("type", "Staff");
+                MyArrList.add(map);
+                Intent ii = new Intent(MainActivity.this, ServiceActivity.class);
+                ii.putExtra("MyArrList", MyArrList);
+                startActivity(ii);*/
+                //************ end test
                 Boolean status = OnLogin();
-                if(status) {
+                if (status) {
                     Toast.makeText(getApplicationContext(), strError, Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(MainActivity.this, ServiceActivity.class);
                     i.putExtra("MyArrList", MyArrList);
                     startActivity(i);
-                }
-                else{
-                    Toast.makeText(getApplicationContext(), strError,Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), strError, Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
     }
 
-    private boolean OnLogin(){
+    private boolean OnLogin() {
 /*        final AlertDialog.Builder ad = new AlertDialog.Builder(this);*/
         Boolean ststusLogin = false;
         String Error = "1";
-        String url = getString(R.string.url_localhost)+ "checkLoginJson.php";
-       // Paste Parameters
+        String url = getString(R.string.url) + "checkLoginJson.php";
+        // Paste Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
         params.add(new BasicNameValuePair("username", txtUsername.getText()
                 .toString().trim()));
@@ -123,24 +132,24 @@ public class MainActivity extends Activity {
                 .toString().trim()));
         try {
             JSONArray data = new JSONArray(http.getJSONUrl(url, params));
-            if(data.length() > 0) {
+            if (data.length() > 0) {
                 JSONObject c = data.getJSONObject(0);
                 Error = c.getString("error");
-                if("0".equals(Error)){
+                if ("0".equals(Error)) {
                     map = new HashMap<String, String>();
                     map.put("username", c.getString("username"));
                     map.put("password", c.getString("password"));
                     map.put("type", c.getString("type"));
                     MyArrList.add(map);
 
-                    myDb.InsertLogin(MyArrList.get(0).get("username"),MyArrList.get(0).get("password"),MyArrList.get(0).get("type"));
+                    myDb.InsertLogin(MyArrList.get(0).get("username"), MyArrList.get(0).get("password"), MyArrList.get(0).get("type"));
                 }
             }
 
-            if("0".equals(Error)){
+            if ("0".equals(Error)) {
                 ststusLogin = true;
                 strError = "รหัสผ่านถูกต้อง...";
-            }else{
+            } else {
                 ststusLogin = false;
                 strError = "รหัสผ่านไม่ถูกต้อง";
             }

@@ -1,6 +1,8 @@
 package com.nutcarcare.app;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaActionSound;
@@ -26,7 +28,7 @@ import java.util.HashMap;
  * Code formatting shortcut in Android studio : Ctrl + Atl + L
  */
 public class ServiceActivity extends Activity {
-    private CheckBox ck1, ck2, ck3, ck4, ck5, ck6, ck7, ck8, ck9, ck10, ck11;
+    private CheckBox ck1, ck2, ck3, ck4, ck5, ck6, ck7, ck8;
     private EditText txtTotal;
     private Button btTotal, btSubmit;
     private Double sumTotal = 0.00;
@@ -59,9 +61,6 @@ public class ServiceActivity extends Activity {
         ck6 = (CheckBox) findViewById(R.id.checkBox6);
         ck7 = (CheckBox) findViewById(R.id.checkBox7);
         ck8 = (CheckBox) findViewById(R.id.checkBox8);
-        ck9 = (CheckBox) findViewById(R.id.checkBox9);
-        ck10 = (CheckBox) findViewById(R.id.checkBox10);
-        ck11 = (CheckBox) findViewById(R.id.checkBox11);
 
         txtTotal = (EditText) findViewById(R.id.editTextTotal);
         btTotal = (Button) findViewById(R.id.btnTotal);
@@ -86,61 +85,63 @@ public class ServiceActivity extends Activity {
         strDetailService.setLength(0);
         txtTotal.setText("");
         if (ck1.isChecked()) {
-            sumTotal += 120.00;
-            strDetailService.append("ล้างสีภายนอก (120 บาท) ");
+            sumTotal += 150.00;
+            strDetailService.append("ทำความสะอาดภายใน (150 บาท) ");
         }
         if (ck2.isChecked()) {
-            sumTotal += 200.00;
-            strDetailService.append("ล้างสี+ดูดฝุ่น (200 บาท) ");
+            sumTotal += 300.00;
+            strDetailService.append("อบโอโซน (300 บาท) ");
         }
         if (ck3.isChecked()) {
-            sumTotal += 250.00;
-            strDetailService.append("ล้างห้องเครื่อง (250 บาท) ");
+            sumTotal += 500.00;
+            strDetailService.append("ขัดกระจกลบรอยน้ำ (500 บาท) ");
         }
         if (ck4.isChecked()) {
-            sumTotal += 120.00;
-            strDetailService.append("ล้างอัดฉีดช่วงล่าง (120 บาท) ");
+            sumTotal += 300.00;
+            strDetailService.append("ขัดล้อแม็กซ์ (300 บาท) ");
         }
         if (ck5.isChecked()) {
             sumTotal += 300.00;
-            strDetailService.append("ขัดเคลือบสี (300 บาท) ");
+            strDetailService.append("เคลือบสีด้วยน้ำยา (300 บาท) ");
         }
         if (ck6.isChecked()) {
-            sumTotal += 250.00;
-            strDetailService.append("ลงแว๊กซี่ (250  บาท) ");
+            sumTotal += 450.00;
+            strDetailService.append("เคลือบกระจก (450  บาท) ");
         }
         if (ck7.isChecked()) {
-            sumTotal += 400.00;
-            strDetailService.append("ขัดลบรอยขีดข่วน (400 บาท) ");
+            sumTotal += 300.00;
+            strDetailService.append("เคลือบล้อแม็กซ์ (300 บาท) ");
         }
         if (ck8.isChecked()) {
-            sumTotal += 200.00;
-            strDetailService.append("ขัดเคลือบไฟหน้า (200 บาท) ");
-        }
-        if (ck9.isChecked()) {
-            sumTotal += 200.00;
-            strDetailService.append("ขัดเบาะหนัง (200 บาท) ");
-        }
-        if (ck10.isChecked()) {
-            sumTotal += 200.00;
-            strDetailService.append("ฟอกพรม(200 บาท) ");
-        }
-        if (ck11.isChecked()) {
             sumTotal += 500.00;
-            strDetailService.append("ฟอกเบาะพรม (500 บาท) ");
+            strDetailService.append("ขจัดคราบยางมะตอย (500 บาท) ");
         }
+
         txtTotal.setText(decimalFormat.format(sumTotal).toString()+" บาท");
         txtTotal.setTextColor(Color.BLUE);
     }
 
     private void GoToSubmit() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         SumTotal();
         String strService = strDetailService.toString();
-        Intent i = new Intent(ServiceActivity.this, CustomerActivity.class);
-        i.putExtra("MyArrList", MyArrList);
-        i.putExtra("sumTotal", sumTotal);
-        i.putExtra("strService", strService);
-        startActivity(i);
+        if(!"".equals(strService)){
+            Intent i = new Intent(ServiceActivity.this, CustomerActivity.class);
+            i.putExtra("MyArrList", MyArrList);
+            i.putExtra("sumTotal", sumTotal);
+            i.putExtra("strService", strService);
+            startActivity(i);
+        }else {
+            builder.setTitle("แจ้งเตือน");
+            builder.setMessage("กรุณาเลือกบริการอย่างน้อย 1 รายการ !")
+                    .setCancelable(true)
+                    .setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    })
+                   .show();
+        }
     }
 
     @Override
