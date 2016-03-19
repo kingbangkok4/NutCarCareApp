@@ -64,7 +64,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends Activity {
-    private DatabaseActivity myDb = new DatabaseActivity(this);
+    //private DatabaseActivity myDb = new DatabaseActivity(this);
     ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
     HashMap<String, String> map;
     private Button btLogin;
@@ -142,7 +142,7 @@ public class MainActivity extends Activity {
                     map.put("type", c.getString("type"));
                     MyArrList.add(map);
 
-                    myDb.InsertLogin(MyArrList.get(0).get("username"), MyArrList.get(0).get("password"), MyArrList.get(0).get("type"));
+                    //myDb.InsertLogin(MyArrList.get(0).get("username"), MyArrList.get(0).get("password"), MyArrList.get(0).get("type"));
                 }
             }
 

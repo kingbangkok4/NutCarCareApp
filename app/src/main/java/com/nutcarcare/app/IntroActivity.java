@@ -31,14 +31,14 @@ import com.database.DatabaseActivity;
  * Created by Administrator on 1/20/2016.
  */
 public class IntroActivity extends Activity {
-    private DatabaseActivity myDb = new DatabaseActivity(this);
+   // private DatabaseActivity myDb = new DatabaseActivity(this);
     ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
     HashMap<String, String> map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        myDb.openDatabase();
+        //myDb.openDatabase();
         setContentView(R.layout.activity_intro);
         LinearLayout llProgress = (LinearLayout) findViewById(R.id.ll_progress);
         try {
@@ -54,20 +54,20 @@ public class IntroActivity extends Activity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                MyArrList = myDb.CheckLogin();
-                if (MyArrList != null) {
+                //MyArrList = myDb.CheckLogin();
+              /*  if (MyArrList != null) {
                     if(MyArrList.size() > 0){
                         Intent i = new Intent(IntroActivity.this, ServiceActivity.class);
                         i.putExtra("MyArrList", MyArrList);
                         startActivity(i);
-                    }else {
+                    }else {*/
                         Intent i = new Intent(IntroActivity.this, MainActivity.class);
                         startActivity(i);
-                    }
+                   /* }
                 } else {
                     Intent i = new Intent(IntroActivity.this, MainActivity.class);
                     startActivity(i);
-                }
+                }*/
                 finish();
             }
         }, 3000);
