@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Nut Car Care Application</string>
+    <string name="app_name">ระบบสารสนเทศการจัดการบริการดูแลรักษารถ</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>

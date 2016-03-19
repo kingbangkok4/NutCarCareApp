@@ -34,9 +34,9 @@ public class ServiceActivity extends Activity {
     private Double sumTotal = 0.00;
     private StringBuilder strDetailService = new StringBuilder();
     private DecimalFormat decimalFormat = new DecimalFormat("#,###,###.##");
-    private DatabaseActivity myDb = new DatabaseActivity(this);
-    ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
-    ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
+    //private DatabaseActivity myDb = new DatabaseActivity(this);
+    private ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
+    private ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,7 +144,7 @@ public class ServiceActivity extends Activity {
         }
     }
 
-    @Override
+   /* @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
@@ -152,23 +152,23 @@ public class ServiceActivity extends Activity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    /**
+    *//**
      * On selecting action bar icons
-     * */
+     * *//*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Take appropriate action for each action item click
         switch (item.getItemId()) {
             case R.id.action_logout:
                 // logout action
-                myDb.DeleleLogin();
+                //myDb.DeleleLogin();
                 Intent i = new Intent(ServiceActivity.this, MainActivity.class);
                 startActivity(i);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
+    }*/
 
 
 }
