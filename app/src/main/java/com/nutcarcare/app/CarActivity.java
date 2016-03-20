@@ -35,7 +35,7 @@ public class CarActivity extends Activity {
     ArrayList<HashMap<String, String>> CarList = new ArrayList<HashMap<String, String>>();
     HashMap<String, String> map;
     private Spinner spinner_type_car;
-    private Button btSearch, btPictureCare, btSave;
+    private Button btBack, btPhotoCare, btExit;
     private EditText txtCustomer, txtMobile, txtEmail, txtLicensePlate, txtBrand, txtColor, txtScar;
     private String[] type_care;
     private String name, mobile, email, license_plate, brand, type, color, scar, filename_front, filename_top, filename_left, filename_right, filename_behide = "";
@@ -73,9 +73,10 @@ public class CarActivity extends Activity {
         }
 
         spinner_type_car = (Spinner) findViewById(R.id.cmbType);
-        btSearch = (Button) findViewById(R.id.btnSearch);
-        btPictureCare = (Button) findViewById(R.id.btnPictureCare);
-        btSave = (Button) findViewById(R.id.btnSave);
+        btBack = (Button) findViewById(R.id.btnBack);
+        btPhotoCare = (Button) findViewById(R.id.btnPhotoCare);
+        btExit = (Button) findViewById(R.id.btnExit);
+
         txtCustomer = (EditText) findViewById(R.id.editTextCustomer);
         txtMobile = (EditText) findViewById(R.id.editTextMobile);
         txtEmail = (EditText) findViewById(R.id.editTextEmail);
@@ -99,22 +100,22 @@ public class CarActivity extends Activity {
 
             }
         });
-        btSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogSearchCustomer(txtCustomer.getText().toString().trim());
-            }
-        });
-        btPictureCare.setOnClickListener(new View.OnClickListener() {
+        btBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
             }
         });
-        btSave.setOnClickListener(new View.OnClickListener() {
+        btExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                OrderCustomer();
+
+            }
+        });
+        btPhotoCare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //OrderCustomer();
             }
         });
 
