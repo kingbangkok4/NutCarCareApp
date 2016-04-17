@@ -101,7 +101,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="ยืนยัน"
+        android:text="ข้อมูลลูกค้า"
         android:id="@+id/btnSubmit"
         android:background="@drawable/button1"
         android:layout_alignParentBottom="true"

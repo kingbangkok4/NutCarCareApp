@@ -127,8 +127,6 @@ public class CustomerActivity extends Activity {
                 //OrderCustomer();
                 Intent i = new Intent(CustomerActivity.this, ServiceActivity.class);
                 i.putExtra("MyArrList", MyArrList);
-/*                i.putExtra("sumTotal", sumTotal);
-                i.putExtra("strService", strService);*/
                 startActivity(i);
             }
         });

@@ -40,8 +40,8 @@ public class PhotoCarActivity extends Activity{
     private String[] namePhotoSplite;
     private ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
     private ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
-    private Double sumTotal = 0.00;
-    private String strService = "";
+    private Double sumTotal = 0.00;;
+    private String strService = "", type = "", license_plate = "", brand = "", color = "", scar = "", cust_id = "";
 
     ImageView imgView;
     static final int REQUEST_TAKE_PHOTO = 1;
@@ -64,7 +64,12 @@ public class PhotoCarActivity extends Activity{
             if (tmpMyArrList != null) {
                 MyArrList = tmpMyArrList;
             }
-
+            license_plate = extras.getString("license_plate");
+            brand = extras.getString("brand");
+            color = extras.getString("color");
+            scar = extras.getString("scar");
+            type = extras.getString("type");
+            cust_id = extras.getString("cust_id");
             sumTotal = extras.getDouble("sumTotal");
             strService = extras.getString("strService");
         }
@@ -89,6 +94,14 @@ public class PhotoCarActivity extends Activity{
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(), CarActivity.class);
                 i.putExtra("photoCarArray", photoCarArray);
+                i.putExtra("license_plate", license_plate);
+                i.putExtra("brand", brand);
+                i.putExtra("color", color);
+                i.putExtra("scar", scar);
+                i.putExtra("type", type);
+                i.putExtra("cust_id", cust_id);
+                i.putExtra("sumTotal", sumTotal);
+                i.putExtra("strService", strService);
                 startActivity(i);
             }
         });

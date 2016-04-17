@@ -83,6 +83,7 @@ public class ServiceActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(), MenuActivity.class);
+                i.putExtra("MyArrList", MyArrList);
                 startActivity(i);
             }
         });
