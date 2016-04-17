@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tableLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <RelativeLayout
+        android:id="@+id/tableRow1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="ถ่ายรูปรถลูกค้า"
+            android:layout_span="1"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_height="1dip"
+        android:background="#CCCCCC" />
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.1"
+        android:orientation="horizontal" >
+
+
+        <ImageView
+            android:id="@+id/imgView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.75"
+            android:src="@drawable/ic_launcher" />
+
+        <Button
+            android:id="@+id/btnTakePhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Take Photo"
+            android:background="#03dfbb" />
+        <Button
+            android:id="@+id/btnUploadFront"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload Photo (หน้า)"
+            android:background="#dbf277"
+            android:layout_marginTop="1dp" />
+        <Button
+            android:id="@+id/btnUploadLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload Photo (ซ้าย)"
+            android:background="#dbf277"
+            android:layout_marginTop="1dp" />
+        <Button
+            android:id="@+id/btnUploadRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload Photo (ขวา)"
+            android:background="#dbf277"
+            android:layout_marginTop="1dp" />
+        <Button
+            android:id="@+id/btnUploadBehide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload Photo (หลัง)"
+            android:background="#dbf277"
+            android:layout_marginTop="1dp" />
+        <Button
+            android:id="@+id/btnUploadTop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload Photo (บน)"
+            android:background="#dbf277"
+            android:layout_marginTop="1dp" />
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="กลับ"
+            android:background="#f30caa"
+            android:layout_marginTop="1dp"
+            android:textSize="20dp"
+            android:textStyle="bold|italic" />
+    </TableLayout>
+
+
+</TableLayout>
