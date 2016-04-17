@@ -37,7 +37,7 @@ public class CarActivity extends Activity {
     ArrayList<HashMap<String, String>> CarList = new ArrayList<HashMap<String, String>>();
     HashMap<String, String> map;
     private Spinner spinner_type_car;
-    private Button btBack, btPhotoCare, btMain;
+    private Button btBack, btPhotoCare, btMain, btOrder;
     private EditText txtCustomer, txtMobile, txtEmail, txtLicensePlate, txtBrand, txtColor, txtScar;
     private String[] type_care;
     private Http http = new Http();
@@ -94,6 +94,7 @@ public class CarActivity extends Activity {
             btBack = (Button) findViewById(R.id.btnBack);
             btPhotoCare = (Button) findViewById(R.id.btnPhotoCare);
             btMain = (Button) findViewById(R.id.btnMain);
+            btOrder = (Button) findViewById(R.id.btnOrder);
 
             txtLicensePlate = (EditText) findViewById(R.id.editTextLicensePlate);
             txtBrand = (EditText) findViewById(R.id.editTextBrand);
@@ -158,11 +159,17 @@ public class CarActivity extends Activity {
                     startActivity(i);
                 }
             });
+            btOrder.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    OrderConfirm();
+                }
+            });
         }
     }
 
 
-    private void OrderCustomer() {
+    private void OrderConfirm() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         String msgStatus = "";
         license_plate = txtLicensePlate.getText().toString().trim();
@@ -226,6 +233,9 @@ public class CarActivity extends Activity {
                     .setCancelable(true)
                     .setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
+                            Intent i = new Intent(getBaseContext(), MenuActivity.class);
+                            i.putExtra("MyArrList", MyArrList);
+                            startActivity(i);
                             dialog.cancel();
                         }
                     })

@@ -92,18 +92,30 @@
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="48dp"
         android:text="ถ่ายภาพรถ"
         android:id="@+id/btnPhotoCare"
         android:background="@drawable/button1"
         android:layout_below="@+id/editTextTotal"
         android:layout_alignEnd="@+id/editTextTotal"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="5dp" />
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="48dp"
+        android:text="ยืนยันการใช้บริการ"
+        android:id="@+id/btnOrder"
+        android:background="@drawable/button3"
+        android:layout_below="@+id/editTextTotal"
+        android:layout_alignEnd="@+id/editTextTotal"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
         android:text="กลับ"
         android:id="@+id/btnBack"
         android:background="@drawable/button6"
@@ -113,13 +125,13 @@
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="48dp"
         android:text="เมนูหลัก"
         android:id="@+id/btnMain"
         android:background="@drawable/button5"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="5dp" />
 
 
 </LinearLayout>
