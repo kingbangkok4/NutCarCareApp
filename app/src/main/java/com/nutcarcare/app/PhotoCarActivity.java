@@ -18,7 +18,9 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -34,6 +36,13 @@ import android.widget.Toast;
 
 public class PhotoCarActivity extends Activity{
 
+    private String photoCarArray[] = new String[5];
+    private String[] namePhotoSplite;
+    private ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
+    private ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
+    private Double sumTotal = 0.00;
+    private String strService = "";
+
     ImageView imgView;
     static final int REQUEST_TAKE_PHOTO = 1;
     String mCurrentPhotoPath;
@@ -46,6 +55,19 @@ public class PhotoCarActivity extends Activity{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_car);
+
+        Bundle extras = getIntent().getExtras();
+        // เช็คว่ามีค่าที่ส่งมาจากหน้าอื่นหรือไม่ถ้ามีจะไม่เท่ากับ null
+        if (extras != null) {
+            tmpMyArrList = (ArrayList<HashMap<String, String>>) extras
+                    .getSerializable("MyArrList");
+            if (tmpMyArrList != null) {
+                MyArrList = tmpMyArrList;
+            }
+
+            sumTotal = extras.getDouble("sumTotal");
+            strService = extras.getString("strService");
+        }
 
         // Permission StrictMode
         if (android.os.Build.VERSION.SDK_INT > 9) {
@@ -65,8 +87,9 @@ public class PhotoCarActivity extends Activity{
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             /*   Intent i = new Intent(getBaseContext(), MenuActivity.class);
-                startActivity(i);*/
+                Intent i = new Intent(getBaseContext(), CarActivity.class);
+                i.putExtra("photoCarArray", photoCarArray);
+                startActivity(i);
             }
         });
         // Perform action on click
@@ -106,6 +129,8 @@ public class PhotoCarActivity extends Activity{
                 if(status){
                     msgShow("Upload Photo สำเร็จ");
                     btnUploadFront.setBackgroundColor(Color.GREEN);
+                    namePhotoSplite = mCurrentPhotoPath.split("/");
+                    photoCarArray[0] = namePhotoSplite[namePhotoSplite.length - 1];
                 }else {
                     msgShow("Upload Photo ไม่สำเร็จ!!");
                 }
@@ -118,6 +143,8 @@ public class PhotoCarActivity extends Activity{
                 if(status){
                     msgShow("Upload Photo สำเร็จ");
                     btnUploadLeft.setBackgroundColor(Color.GREEN);
+                    namePhotoSplite = mCurrentPhotoPath.split("/");
+                    photoCarArray[1] = namePhotoSplite[namePhotoSplite.length - 1];
                 }else {
                     msgShow("Upload Photo ไม่สำเร็จ!!");
                 }
@@ -130,6 +157,8 @@ public class PhotoCarActivity extends Activity{
                 if(status){
                     msgShow("Upload Photo สำเร็จ");
                     btnUploadRight.setBackgroundColor(Color.GREEN);
+                    namePhotoSplite = mCurrentPhotoPath.split("/");
+                    photoCarArray[2] = namePhotoSplite[namePhotoSplite.length - 1];
                 }else {
                     msgShow("Upload Photo ไม่สำเร็จ!!");
                 }
@@ -142,6 +171,8 @@ public class PhotoCarActivity extends Activity{
                 if(status){
                     msgShow("Upload Photo สำเร็จ");
                     btnUploadBehide.setBackgroundColor(Color.GREEN);
+                    namePhotoSplite = mCurrentPhotoPath.split("/");
+                    photoCarArray[3] = namePhotoSplite[namePhotoSplite.length - 1];
                 }else {
                     msgShow("Upload Photo ไม่สำเร็จ!!");
                 }
@@ -154,6 +185,8 @@ public class PhotoCarActivity extends Activity{
                 if(status){
                     msgShow("Upload Photo สำเร็จ");
                     btnUploadTop.setBackgroundColor(Color.GREEN);
+                    namePhotoSplite = mCurrentPhotoPath.split("/");
+                    photoCarArray[4] = namePhotoSplite[namePhotoSplite.length - 1];
                 }else {
                     msgShow("Upload Photo ไม่สำเร็จ!!");
                 }
@@ -239,7 +272,7 @@ public class PhotoCarActivity extends Activity{
             outputStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
 
             // Response Code and Message
- /*           resCode = conn.getResponseCode();
+            resCode = conn.getResponseCode();
             if (resCode == HttpURLConnection.HTTP_OK) {
                 InputStream is = conn.getInputStream();
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -253,7 +286,7 @@ public class PhotoCarActivity extends Activity{
 
                 resMessage = new String(result);
 
-            }*/
+            }
 
             fileInputStream.close();
             outputStream.flush();

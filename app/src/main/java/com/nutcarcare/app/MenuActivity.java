@@ -71,8 +71,8 @@ public class MenuActivity extends Activity {
         btnExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
-                System.exit(0);
+                Intent i = new Intent(getBaseContext(), MainActivity.class);
+                startActivity(i);
             }
         });
     }

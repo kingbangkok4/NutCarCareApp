@@ -36,7 +36,7 @@ public class CustomerActivity extends Activity {
     HashMap<String, String> map;
     private Button btSearch, btCare, btBack, btMain;
     private EditText txtCustomer, txtMobile, txtEmail;
-    private String custId = "0", name, mobile, email;
+    private String cust_id = "0", name, mobile, email;
     private Http http = new Http();
 
     private ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
@@ -112,15 +112,11 @@ public class CustomerActivity extends Activity {
                                 }
                             })*/.show();
                 } else {
-                    Intent i = new Intent(CustomerActivity.this, CarActivity.class);
+                    Intent i = new Intent(getBaseContext(), CarActivity.class);
                     i.putExtra("MyArrList", MyArrList);
                     i.putExtra("sumTotal", sumTotal);
                     i.putExtra("strService", strService);
-
-                    i.putExtra("name", name);
-                    i.putExtra("mobile", mobile);
-                    i.putExtra("email", email);
-
+                    i.putExtra("cust_id", cust_id);
                     startActivity(i);
                 }
             }
@@ -198,7 +194,7 @@ public class CustomerActivity extends Activity {
                 lvCustomer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     public void onItemClick(AdapterView<?> myAdapter, View myView,
                                             int position, long mylng) {
-                        custId = ArrListCustomer.get(position).get("id").toString();
+                        cust_id = ArrListCustomer.get(position).get("id").toString();
                         name = ArrListCustomer.get(position).get("name").toString();
                         mobile = ArrListCustomer.get(position).get("mobile").toString();
                         email = ArrListCustomer.get(position).get("email").toString();

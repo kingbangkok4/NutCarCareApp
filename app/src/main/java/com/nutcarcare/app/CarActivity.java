@@ -39,12 +39,14 @@ public class CarActivity extends Activity {
     private Button btBack, btPhotoCare, btMain;
     private EditText txtCustomer, txtMobile, txtEmail, txtLicensePlate, txtBrand, txtColor, txtScar;
     private String[] type_care;
-    private String name, mobile, email, license_plate, brand, type, color, scar, filename_front, filename_top, filename_left, filename_right, filename_behide = "";
     private Http http = new Http();
     private ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
     private ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
     private Double sumTotal = 0.00;
-    private String strService = "";
+    private String strService = "", type = "", license_plate = "", brand = "", color = "", scar = "", cust_id = "";
+    private String[] photoCarArray = new String[5];
+    private String[] tmpPhotoCarArray;
+    private String front_image = "", left_image = "", right_image = "", behide_image = "", top_image = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +61,20 @@ public class CarActivity extends Activity {
             if (tmpMyArrList != null) {
                 MyArrList = tmpMyArrList;
             }
+            tmpPhotoCarArray = (String[]) extras
+                    .getSerializable("photoCarArray");
+            if (tmpPhotoCarArray != null) {
+                photoCarArray = tmpPhotoCarArray;
+
+                front_image = photoCarArray[0];
+                left_image = photoCarArray[1];
+                right_image = photoCarArray[2];
+                behide_image = photoCarArray[3];
+                top_image = photoCarArray[4];
+            }
             sumTotal = extras.getDouble("sumTotal");
             strService = extras.getString("strService");
-            name = extras.getString("name");
-            mobile = extras.getString("mobile");
-            email = extras.getString("email");
+            cust_id = extras.getString("cust_id");
         }
 
         // Permission StrictMode
@@ -78,9 +89,6 @@ public class CarActivity extends Activity {
         btPhotoCare = (Button) findViewById(R.id.btnPhotoCare);
         btMain = (Button) findViewById(R.id.btnMain);
 
-        txtCustomer = (EditText) findViewById(R.id.editTextCustomer);
-        txtMobile = (EditText) findViewById(R.id.editTextMobile);
-        txtEmail = (EditText) findViewById(R.id.editTextEmail);
         txtLicensePlate = (EditText) findViewById(R.id.editTextLicensePlate);
         txtBrand = (EditText) findViewById(R.id.editTextBrand);
         txtColor = (EditText) findViewById(R.id.editTextColor);
@@ -117,7 +125,19 @@ public class CarActivity extends Activity {
         btPhotoCare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //OrderCustomer();
+                license_plate = txtLicensePlate.getText().toString().trim();
+                brand = txtBrand.getText().toString().trim();
+                color = txtColor.getText().toString().trim();
+                scar = txtLicensePlate.getText().toString().trim();
+
+                Intent i = new Intent(getBaseContext(), PhotoCarActivity.class);
+                i.putExtra("license_plate", license_plate);
+                i.putExtra("brand", brand);
+                i.putExtra("color", color);
+                i.putExtra("scar", scar);
+                i.putExtra("type", type);
+                i.putExtra("cust_id", cust_id);
+                startActivity(i);
             }
         });
 
@@ -126,23 +146,16 @@ public class CarActivity extends Activity {
     private void OrderCustomer() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         String msgStatus = "";
-
-        name = txtCustomer.getText().toString().trim();
-        mobile = txtMobile.getText().toString().trim();
-        email = txtEmail.getText().toString().trim();
         license_plate = txtLicensePlate.getText().toString().trim();
         brand = txtBrand.getText().toString().trim();
         color = txtColor.getText().toString().trim();
-        scar = txtScar.getText().toString().trim();
-
-        if ("".equals(name)
-                || "".equals(mobile)
-                || "".equals(email)
-                || "".equals(license_plate)
+        scar = txtLicensePlate.getText().toString().trim();
+        if ("".equals(license_plate)
                 || "".equals(brand)
                 || "".equals(type)
                 || "".equals(color)
-                || "".equals(scar)) {
+                || "".equals(scar)
+                || "".equals(cust_id)) {
             builder.setTitle("แจ้งเตือน");
             builder.setMessage("กรุณาใส่ข้อมูลลูกค้าให้ครบถ้วน !")
                     .setCancelable(true)
@@ -151,33 +164,26 @@ public class CarActivity extends Activity {
                             dialog.cancel();
                         }
                     })
-                    /*.setNegativeButton("ปิด",
+                    .setNegativeButton("ปิด",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     dialog.cancel();
                                 }
-                            })*/.show();
+                            }).show();
         } else {
-            String url = getString(R.string.url)+ "doCustomerJson.php";
+            String url = getString(R.string.url) + "doCustomerJson.php";
             // Paste Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
-            params.add(new BasicNameValuePair("name", name));
-            params.add(new BasicNameValuePair("mobile", mobile));
-            params.add(new BasicNameValuePair("email", email));
             params.add(new BasicNameValuePair("license_plate", license_plate));
             params.add(new BasicNameValuePair("brand", brand));
             params.add(new BasicNameValuePair("type", type));
             params.add(new BasicNameValuePair("color", color));
             params.add(new BasicNameValuePair("scar", scar));
-            params.add(new BasicNameValuePair("filename_front", filename_front));
-            params.add(new BasicNameValuePair("filename_top", filename_top));
-            params.add(new BasicNameValuePair("filename_left", filename_left));
-            params.add(new BasicNameValuePair("filename_right", filename_right));
-            params.add(new BasicNameValuePair("filename_behide", filename_behide));
+            params.add(new BasicNameValuePair("scar", cust_id));
 
             try {
                 JSONArray data = new JSONArray(http.getJSONUrl(url, params));
-                if(data.length() > 0) {
+                if (data.length() > 0) {
                     JSONObject c = data.getJSONObject(0);
                     msgStatus = c.getString("error");
                 }
@@ -194,12 +200,12 @@ public class CarActivity extends Activity {
                             dialog.cancel();
                         }
                     })
-                    /*.setNegativeButton("ปิด",
+                    .setNegativeButton("ปิด",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     dialog.cancel();
                                 }
-                            })*/.show();
+                            }).show();
         }
     }
 
