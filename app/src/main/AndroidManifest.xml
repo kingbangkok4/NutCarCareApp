@@ -35,13 +35,13 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity" />
-        <activity android:name=".ServiceActivity" />
-        <activity android:name=".CustomerActivity" />
-        <activity android:name=".MenuActivity" />
-        <activity android:name=".CarActivity" />
-        <activity android:name=".ReceiveActivity" />
-        <activity android:name=".PhotoCarActivity" />
+        <activity android:name=".MainActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ServiceActivity" android:screenOrientation="portrait" />
+        <activity android:name=".CustomerActivity" android:screenOrientation="portrait" />
+        <activity android:name=".MenuActivity" android:screenOrientation="portrait" />
+        <activity android:name=".CarActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ReceiveActivity" android:screenOrientation="portrait" />
+        <activity android:name=".PhotoCarActivity" android:screenOrientation="portrait" />
 
     </application>
 

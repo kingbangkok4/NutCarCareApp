@@ -93,6 +93,8 @@ public class PhotoCarActivity extends Activity{
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(), CarActivity.class);
+                i.putExtra("MyArrList", MyArrList);
+
                 i.putExtra("photoCarArray", photoCarArray);
                 i.putExtra("license_plate", license_plate);
                 i.putExtra("brand", brand);

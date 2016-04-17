@@ -161,6 +161,8 @@ public class CarActivity extends Activity {
                     scar = txtLicensePlate.getText().toString().trim();
 
                     Intent i = new Intent(getBaseContext(), PhotoCarActivity.class);
+                    i.putExtra("MyArrList", MyArrList);
+
                     i.putExtra("license_plate", license_plate);
                     i.putExtra("brand", brand);
                     i.putExtra("color", color);
