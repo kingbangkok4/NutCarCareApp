@@ -112,12 +112,14 @@ public class CustomerActivity extends Activity {
                                 }
                             })*/.show();
                 } else {
-                    Intent i = new Intent(getBaseContext(), CarActivity.class);
-                    i.putExtra("MyArrList", MyArrList);
-                    i.putExtra("sumTotal", sumTotal);
-                    i.putExtra("strService", strService);
-                    i.putExtra("cust_id", cust_id);
-                    startActivity(i);
+                    if(CheckCustomer()) {
+                        Intent i = new Intent(getBaseContext(), CarActivity.class);
+                        i.putExtra("MyArrList", MyArrList);
+                        i.putExtra("sumTotal", sumTotal);
+                        i.putExtra("strService", strService);
+                        i.putExtra("cust_id", cust_id);
+                        startActivity(i);
+                    }
                 }
             }
         });
@@ -138,6 +140,28 @@ public class CustomerActivity extends Activity {
                 startActivity(i);
             }
         });
+    }
+
+    private boolean CheckCustomer() {
+        boolean status = false;
+        String url = getString(R.string.url) + "checkCustomer.php";
+        // Paste Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("name", txtCustomer.getText().toString().trim()));
+        params.add(new BasicNameValuePair("mobile", txtMobile.getText().toString().trim()));
+        params.add(new BasicNameValuePair("email", txtEmail.getText().toString().trim()));
+        try {
+            JSONArray data = new JSONArray(http.getJSONUrl(url, params));
+            if (data.length() > 0) {
+                JSONObject c = data.getJSONObject(0);
+                cust_id = c.getString("cust_id");
+                status = true;
+            }
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return status;
     }
 
     private void DialogSearchCustomer(String strCustomer) {

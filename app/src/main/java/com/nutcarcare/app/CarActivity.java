@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,12 +19,24 @@ import android.widget.Spinner;
 import com.database.DatabaseActivity;
 import com.http.Http;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.StatusLine;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,6 +55,7 @@ public class CarActivity extends Activity {
     private String[] type_care;
     private Http http = new Http();
     private ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
+    private ArrayList<HashMap<String, String>> CarTypeArrList = new ArrayList<HashMap<String, String>>();
     private ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
     private Double sumTotal = 0.00;
     private String strService = "", type = "", license_plate = "", brand = "", color = "", scar = "", cust_id = "";
@@ -72,17 +86,17 @@ public class CarActivity extends Activity {
                 right_image = photoCarArray[2];
                 behide_image = photoCarArray[3];
                 top_image = photoCarArray[4];
-
-                license_plate = extras.getString("license_plate");
-                brand = extras.getString("brand");
-                color = extras.getString("color");
-                scar = extras.getString("scar");
-                type = extras.getString("type");
-                cust_id = extras.getString("cust_id");
-                sumTotal = extras.getDouble("sumTotal");
-                strService = extras.getString("sumTotal");
             }
 
+            license_plate = extras.getString("license_plate");
+            brand = extras.getString("brand");
+            color = extras.getString("color");
+            scar = extras.getString("scar");
+            type = extras.getString("type");
+            cust_id = extras.getString("cust_id");
+            sumTotal = extras.getDouble("sumTotal");
+            strService = extras.getString("strService");
+        }
             // Permission StrictMode
             if (android.os.Build.VERSION.SDK_INT > 9) {
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
@@ -165,7 +179,6 @@ public class CarActivity extends Activity {
                     OrderConfirm();
                 }
             });
-        }
     }
 
 
@@ -175,7 +188,7 @@ public class CarActivity extends Activity {
         license_plate = txtLicensePlate.getText().toString().trim();
         brand = txtBrand.getText().toString().trim();
         color = txtColor.getText().toString().trim();
-        scar = txtLicensePlate.getText().toString().trim();
+        scar = txtScar.getText().toString().trim();
         if ("".equals(license_plate)
                 || "".equals(brand)
                 || "".equals(type)
@@ -197,7 +210,7 @@ public class CarActivity extends Activity {
                                 }
                             }).show();
         } else {
-            String url = getString(R.string.url) + "doCustomerJson.php";
+            String url = getString(R.string.url) + "saveOrder.php";
             // Paste Parameters
             List<NameValuePair> params = new ArrayList<NameValuePair>();
             params.add(new BasicNameValuePair("order_detail", strService));
@@ -222,6 +235,7 @@ public class CarActivity extends Activity {
                 if (data.length() > 0) {
                     JSONObject c = data.getJSONObject(0);
                     msgStatus = c.getString("error");
+
                 }
             } catch (JSONException e) {
                 // TODO Auto-generated catch block
@@ -229,13 +243,16 @@ public class CarActivity extends Activity {
                 msgStatus = e.getMessage();
             }
             builder.setTitle("สถานะการบันทึก");
+            final String finalMsgStatus = msgStatus;
             builder.setMessage(msgStatus)
                     .setCancelable(true)
                     .setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            Intent i = new Intent(getBaseContext(), MenuActivity.class);
-                            i.putExtra("MyArrList", MyArrList);
-                            startActivity(i);
+                            if ("บันทึกการใช้บริการสำเร็จ".equals(finalMsgStatus)){
+                                Intent i = new Intent(getBaseContext(), MenuActivity.class);
+                                i.putExtra("MyArrList", MyArrList);
+                                startActivity(i);
+                        }
                             dialog.cancel();
                         }
                     })
@@ -315,21 +332,21 @@ public class CarActivity extends Activity {
         try {
             JSONArray data = new JSONArray(http.getJSONUrl(url, params));
             if (data.length() > 0) {
-                MyArrList.clear();
+                CarTypeArrList.clear();
                 type_care = new String[data.length()];
                 for (int i = 0; i < data.length(); i++) {
                     JSONObject c = data.getJSONObject(i);
                     map = new HashMap<String, String>();
                     map.put("id", c.getString("id"));
                     map.put("name", c.getString("name"));
-                    MyArrList.add(map);
+                    CarTypeArrList.add(map);
                     type_care[i] = c.getString("name");
                 }
 
                 ArrayAdapter<String> dataAdapterType = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, type_care);
                 dataAdapterType.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinner_type_car.setAdapter(dataAdapterType);
-                String type_name = MyArrList.get(0).get("name");
+                String type_name = CarTypeArrList.get(0).get("name");
                 int innerPosition = dataAdapterType.getPosition(type_name);
                 if (!"".equals(type)) {
                     innerPosition = dataAdapterType.getPosition(type);

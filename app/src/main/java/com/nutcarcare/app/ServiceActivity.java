@@ -135,7 +135,7 @@ public class ServiceActivity extends Activity {
         SumTotal();
         String strService = strDetailService.toString();
         if(!"".equals(strService)){
-            Intent i = new Intent(ServiceActivity.this, CustomerActivity.class);
+            Intent i = new Intent(getBaseContext(), CustomerActivity.class);
             i.putExtra("MyArrList", MyArrList);
             i.putExtra("sumTotal", sumTotal);
             i.putExtra("strService", strService);
