@@ -34,7 +34,7 @@ import java.util.List;
 public class CustomerActivity extends Activity {
    // private DatabaseActivity myDb = new DatabaseActivity(this);
     HashMap<String, String> map;
-    private Button btSearch, btCare, btBack, btExit;
+    private Button btSearch, btCare, btBack, btMain;
     private EditText txtCustomer, txtMobile, txtEmail;
     private String custId = "0", name, mobile, email;
     private Http http = new Http();
@@ -71,7 +71,7 @@ public class CustomerActivity extends Activity {
         btSearch = (Button) findViewById(R.id.btnSearch);
         btCare = (Button) findViewById(R.id.btnCare);
         btBack = (Button) findViewById(R.id.btnBack);
-        btExit = (Button) findViewById(R.id.btnExit);
+        btMain = (Button) findViewById(R.id.btnMain);
 
         txtCustomer = (EditText) findViewById(R.id.editTextCustomer);
         txtMobile = (EditText) findViewById(R.id.editTextMobile);
@@ -137,13 +137,11 @@ public class CustomerActivity extends Activity {
             }
         });
 
-        btExit.setOnClickListener(new View.OnClickListener() {
+        btMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_MAIN);
-                intent.addCategory(Intent.CATEGORY_HOME);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
+                Intent i = new Intent(getBaseContext(), MenuActivity.class);
+                startActivity(i);
             }
         });
     }

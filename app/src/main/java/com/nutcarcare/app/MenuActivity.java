@@ -25,7 +25,7 @@ import java.util.HashMap;
  * Code formatting shortcut in Android studio : Ctrl + Atl + L
  */
 public class MenuActivity extends Activity {
-    private Button btService, btReceive;
+    private Button btService, btReceive, btnExit;
     private Double sumTotal = 0.00;
     private StringBuilder strDetailService = new StringBuilder();
     private DecimalFormat decimalFormat = new DecimalFormat("#,###,###.##");
@@ -50,11 +50,12 @@ public class MenuActivity extends Activity {
 
         btService = (Button) findViewById(R.id.btnService);
         btReceive = (Button) findViewById(R.id.btnReceive);
+        btnExit =  (Button) findViewById(R.id.btnExit);
 
         btService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MenuActivity.this, ServiceActivity.class);
+                Intent i = new Intent(getBaseContext(), ServiceActivity.class);
                 i.putExtra("MyArrList", MyArrList);
                 startActivity(i);
             }
@@ -62,9 +63,16 @@ public class MenuActivity extends Activity {
         btReceive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MenuActivity.this, ServiceActivity.class);
+                Intent i = new Intent(getBaseContext(), ServiceActivity.class);
                 i.putExtra("MyArrList", MyArrList);
                 startActivity(i);
+            }
+        });
+        btnExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                System.exit(0);
             }
         });
     }

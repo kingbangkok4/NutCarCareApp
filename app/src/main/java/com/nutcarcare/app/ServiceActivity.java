@@ -30,7 +30,7 @@ import java.util.HashMap;
 public class ServiceActivity extends Activity {
     private CheckBox ck1, ck2, ck3, ck4, ck5, ck6, ck7, ck8;
     private EditText txtTotal;
-    private Button btTotal, btSubmit;
+    private Button btTotal, btSubmit, btMain;
     private Double sumTotal = 0.00;
     private StringBuilder strDetailService = new StringBuilder();
     private DecimalFormat decimalFormat = new DecimalFormat("#,###,###.##");
@@ -65,6 +65,7 @@ public class ServiceActivity extends Activity {
         txtTotal = (EditText) findViewById(R.id.editTextTotal);
         btTotal = (Button) findViewById(R.id.btnTotal);
         btSubmit = (Button) findViewById(R.id.btnSubmit);
+        btMain = (Button) findViewById(R.id.btnMain);
 
         btTotal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +77,13 @@ public class ServiceActivity extends Activity {
             @Override
             public void onClick(View view) {
                 GoToSubmit();
+            }
+        });
+        btMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), MenuActivity.class);
+                startActivity(i);
             }
         });
     }

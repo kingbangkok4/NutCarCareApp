@@ -67,7 +67,7 @@ public class MainActivity extends Activity {
                 Boolean status = OnLogin();
                 if (status) {
                     Toast.makeText(getApplicationContext(), strError, Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(MainActivity.this, MenuActivity.class);
+                    Intent i = new Intent(getBaseContext(), MenuActivity.class);
                     i.putExtra("MyArrList", MyArrList);
                     startActivity(i);
                 } else {

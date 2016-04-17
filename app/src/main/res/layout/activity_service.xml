@@ -90,7 +90,7 @@
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="50dp"
         android:text="คำนวนราคา"
         android:id="@+id/btnTotal"
         android:background="@drawable/button3"
@@ -100,7 +100,7 @@
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="50dp"
         android:text="ยืนยัน"
         android:id="@+id/btnSubmit"
         android:background="@drawable/button1"
@@ -123,10 +123,10 @@
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="ออก"
-        android:id="@+id/btnExit"
-        android:background="@drawable/button2"
+        android:layout_height="50dp"
+        android:text="เมนูหลัก"
+        android:id="@+id/btnMain"
+        android:background="@drawable/button5"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 

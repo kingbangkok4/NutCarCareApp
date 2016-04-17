@@ -3,6 +3,7 @@ package com.nutcarcare.app;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
@@ -35,7 +36,7 @@ public class CarActivity extends Activity {
     ArrayList<HashMap<String, String>> CarList = new ArrayList<HashMap<String, String>>();
     HashMap<String, String> map;
     private Spinner spinner_type_car;
-    private Button btBack, btPhotoCare, btExit;
+    private Button btBack, btPhotoCare, btMain;
     private EditText txtCustomer, txtMobile, txtEmail, txtLicensePlate, txtBrand, txtColor, txtScar;
     private String[] type_care;
     private String name, mobile, email, license_plate, brand, type, color, scar, filename_front, filename_top, filename_left, filename_right, filename_behide = "";
@@ -75,7 +76,7 @@ public class CarActivity extends Activity {
         spinner_type_car = (Spinner) findViewById(R.id.cmbType);
         btBack = (Button) findViewById(R.id.btnBack);
         btPhotoCare = (Button) findViewById(R.id.btnPhotoCare);
-        btExit = (Button) findViewById(R.id.btnExit);
+        btMain = (Button) findViewById(R.id.btnMain);
 
         txtCustomer = (EditText) findViewById(R.id.editTextCustomer);
         txtMobile = (EditText) findViewById(R.id.editTextMobile);
@@ -106,10 +107,11 @@ public class CarActivity extends Activity {
 
             }
         });
-        btExit.setOnClickListener(new View.OnClickListener() {
+        btMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent i = new Intent(getBaseContext(), MenuActivity.class);
+                startActivity(i);
             }
         });
         btPhotoCare.setOnClickListener(new View.OnClickListener() {
