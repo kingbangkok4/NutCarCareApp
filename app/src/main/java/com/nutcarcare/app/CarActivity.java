@@ -244,13 +244,13 @@ public class CarActivity extends Activity {
                         }
                             dialog.cancel();
                         }
-                    })
+                    })/*
                     .setNegativeButton("ปิด",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     dialog.cancel();
                                 }
-                            }).show();
+                            })*/.show();
         }
     }
 
