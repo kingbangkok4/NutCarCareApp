@@ -7,7 +7,7 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="30dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="ข้อมูลรถ"
         android:id="@+id/textView6"
@@ -26,11 +26,11 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="ป้ายทะเบียน"
         android:id="@+id/textView10"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="5dp" />
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:id="@+id/editTextLicensePlate"
         android:inputType="text"
         android:background="#fff" />
@@ -44,7 +44,7 @@
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:id="@+id/editTextBrand"
         android:inputType="text"
         android:background="#fff" />
@@ -58,7 +58,7 @@
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:id="@+id/editTextColor"
         android:inputType="text"
         android:background="#fff" />
@@ -72,14 +72,14 @@
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:id="@+id/editTextScar"
         android:inputType="text"
         android:background="#fff" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="ประเภทรถ"
         android:id="@+id/textView12" />
@@ -92,7 +92,7 @@
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="40dp"
         android:text="ถ่ายภาพรถ"
         android:id="@+id/btnPhotoCare"
         android:background="@drawable/button1"
@@ -103,7 +103,7 @@
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="40dp"
         android:text="ยืนยันการใช้บริการ"
         android:id="@+id/btnOrder"
         android:background="@drawable/button3"
@@ -115,7 +115,7 @@
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="40dp"
         android:text="กลับ"
         android:id="@+id/btnBack"
         android:background="@drawable/button6"
@@ -125,7 +125,7 @@
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="40dp"
         android:text="เมนูหลัก"
         android:id="@+id/btnMain"
         android:background="@drawable/button5"

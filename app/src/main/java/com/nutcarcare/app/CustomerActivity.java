@@ -8,14 +8,11 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Spinner;
 
-import com.database.DatabaseActivity;
 import com.http.Http;
 
 import org.apache.http.NameValuePair;
@@ -37,6 +34,7 @@ public class CustomerActivity extends Activity {
     private Button btSearch, btCare, btBack, btMain;
     private EditText txtCustomer, txtMobile, txtEmail;
     private String cust_id = "0", name, mobile, email;
+    private String license_plate = "", brand = "",type = "", color = "", scar = "";
     private Http http = new Http();
 
     private ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
@@ -113,11 +111,16 @@ public class CustomerActivity extends Activity {
                             })*/.show();
                 } else {
                     if(CheckCustomer()) {
+                        CarCustomer();
                         Intent i = new Intent(getBaseContext(), CarActivity.class);
                         i.putExtra("MyArrList", MyArrList);
                         i.putExtra("sumTotal", sumTotal);
                         i.putExtra("strService", strService);
-                        i.putExtra("cust_id", cust_id);
+                        i.putExtra("license_plate", license_plate);
+                        i.putExtra("brand", brand);
+                        i.putExtra("type", type);
+                        i.putExtra("color", color);
+                        i.putExtra("scar", scar);
                         startActivity(i);
                     }
                 }
@@ -140,6 +143,27 @@ public class CustomerActivity extends Activity {
                 startActivity(i);
             }
         });
+    }
+
+    private void CarCustomer() {
+        String url = getString(R.string.url) + "carCustomer.php";
+        // Paste Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("cust_id", cust_id));
+        try {
+            JSONArray data = new JSONArray(http.getJSONUrl(url, params));
+            if (data.length() > 0) {
+                JSONObject c = data.getJSONObject(0);
+                license_plate = c.getString("license_plate");
+                brand = c.getString("brand");
+                type = c.getString("type");
+                color = c.getString("color");
+                scar = c.getString("scar");
+            }
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     private boolean CheckCustomer() {

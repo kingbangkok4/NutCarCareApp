@@ -29,18 +29,18 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="25dp"
+        android:layout_height="50dp"
         android:weightSum="1">
         <EditText
             android:layout_width="wrap_content"
-            android:layout_height="20dp"
+            android:layout_height="50dp"
             android:id="@+id/editTextCustomer"
             android:background="#fff"
             android:layout_gravity="center_vertical"
             android:layout_weight="1.03" />
         <Button
-            android:layout_width="22dp"
-            android:layout_height="20dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:id="@+id/btnSearch"
             android:layout_gravity="center_vertical"
             android:background="@drawable/black_search"
@@ -53,11 +53,12 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="เบอร์โทรศัพท์"
-        android:id="@+id/textView8" />
+        android:id="@+id/textView8"
+        android:layout_marginTop="10dp" />
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="50dp"
         android:id="@+id/editTextMobile"
         android:inputType="phone"
         android:background="#fff" />
@@ -67,11 +68,12 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="อีเมล์"
-        android:id="@+id/textView9" />
+        android:id="@+id/textView9"
+        android:layout_marginTop="10dp" />
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="50dp"
         android:id="@+id/editTextEmail"
         android:inputType="textEmailAddress"
         android:background="#fff" />
@@ -85,7 +87,7 @@
         android:layout_below="@+id/editTextTotal"
         android:layout_alignEnd="@+id/editTextTotal"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="120dp" />
+        android:layout_marginTop="30dp" />
 
     <Button
         android:layout_width="match_parent"
