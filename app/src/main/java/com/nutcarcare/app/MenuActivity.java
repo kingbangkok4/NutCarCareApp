@@ -63,7 +63,7 @@ public class MenuActivity extends Activity {
         btReceive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getBaseContext(), ServiceActivity.class);
+                Intent i = new Intent(getBaseContext(), ReceiveActivity.class);
                 i.putExtra("MyArrList", MyArrList);
                 startActivity(i);
             }

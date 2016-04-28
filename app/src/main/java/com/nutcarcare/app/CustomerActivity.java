@@ -127,7 +127,7 @@ public class CustomerActivity extends Activity {
             @Override
             public void onClick(View view) {
                 //OrderCustomer();
-                Intent i = new Intent(CustomerActivity.this, ServiceActivity.class);
+                Intent i = new Intent(getBaseContext(), ServiceActivity.class);
                 i.putExtra("MyArrList", MyArrList);
                 startActivity(i);
             }
@@ -210,7 +210,7 @@ public class CustomerActivity extends Activity {
                 }
 
                 SimpleAdapter sAdap;
-                sAdap = new SimpleAdapter(CustomerActivity.this, ArrListCustomer,
+                sAdap = new SimpleAdapter(getBaseContext(), ArrListCustomer,
                         R.layout.activity_column_customer, new String[]{"name"}, new int[]{R.id.ColName});
                 lvCustomer.setAdapter(sAdap);
                 lvCustomer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
