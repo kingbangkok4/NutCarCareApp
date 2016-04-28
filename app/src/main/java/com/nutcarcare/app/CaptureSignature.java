@@ -270,13 +270,14 @@ public class CaptureSignature extends Activity {
                     namePhotoSplite = mypath.toString().trim().split("/");
                     img_signature = namePhotoSplite[namePhotoSplite.length - 1];
                     CustReciveCar();
-                    msgShow("บันทึกลายเซนต์สำเร็จ");
+                    msgShow("บันทึกลายเซ็นต์สำเร็จ");
                 } else {
-                    msgShow("บันทึกลายเซนต์ไม่สำเร็จ!!");
+                    msgShow("บันทึกลายเซ็นต์ ไม่สำเร็จ!!");
                 }
 
             } catch (Exception e) {
                 Log.v("log_tag", e.toString());
+                msgShow("e.toString()");
             }
         }
 
