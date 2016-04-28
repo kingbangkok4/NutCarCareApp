@@ -27,6 +27,11 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.http.Http;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -38,6 +43,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 public class CaptureSignature extends Activity {
 
@@ -51,14 +57,15 @@ public class CaptureSignature extends Activity {
     View mView;
     File mypath;
 
+    private Http http = new Http();
     private String uniqueId;
     private EditText custName;
     static String strURLUpload = "http://www.nutcarcare.com/api/uploadFile.php";
-    private String order_id = "", name = "";
+    private String order_id = "", name = "", img_signature = "";
+    private String[] namePhotoSplite;
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.signature);
@@ -83,61 +90,55 @@ public class CaptureSignature extends Activity {
         prepareDirectory();
         uniqueId = getTodaysDate() + "_" + getCurrentTime() + "_" + Math.random();
         current = uniqueId + ".png";
-        mypath= new File(directory,current);
+        mypath = new File(directory, current);
 
 
         mContent = (LinearLayout) findViewById(R.id.linearLayout);
         mSignature = new signature(this, null);
         mSignature.setBackgroundColor(Color.WHITE);
         mContent.addView(mSignature, LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
-        mClear = (Button)findViewById(R.id.clear);
-        mGetSign = (Button)findViewById(R.id.getsign);
+        mClear = (Button) findViewById(R.id.clear);
+        mGetSign = (Button) findViewById(R.id.getsign);
         mGetSign.setEnabled(false);
-        mCancel = (Button)findViewById(R.id.cancel);
+        mCancel = (Button) findViewById(R.id.cancel);
         mView = mContent;
 
         custName = (EditText) findViewById(R.id.custName);
         custName.setText(name);
 
-        mClear.setOnClickListener(new OnClickListener()
-        {
-            public void onClick(View v)
-            {
+        mClear.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
                 Log.v("log_tag", "Panel Cleared");
                 mSignature.clear();
                 mGetSign.setEnabled(false);
             }
         });
 
-        mGetSign.setOnClickListener(new OnClickListener()
-        {
-            public void onClick(View v)
-            {
+        mGetSign.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
                 Log.v("log_tag", "Panel Saved");
                 boolean error = captureSignature();
-                if(!error){
+                if (!error) {
                     mView.setDrawingCacheEnabled(true);
                     mSignature.save(mView);
                     Bundle b = new Bundle();
                     b.putString("status", "done");
                     Intent intent = new Intent();
                     intent.putExtras(b);
-                    setResult(RESULT_OK,intent);
+                    setResult(RESULT_OK, intent);
                     finish();
                 }
             }
         });
 
-        mCancel.setOnClickListener(new OnClickListener()
-        {
-            public void onClick(View v)
-            {
+        mCancel.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
                 Log.v("log_tag", "Panel Canceled");
                 Bundle b = new Bundle();
                 b.putString("status", "cancel");
                 Intent intent = new Intent();
                 intent.putExtras(b);
-                setResult(RESULT_OK,intent);
+                setResult(RESULT_OK, intent);
                 finish();
             }
         });
@@ -156,12 +157,12 @@ public class CaptureSignature extends Activity {
         String errorMessage = "";
 
 
-        if(custName.getText().toString().equalsIgnoreCase("")){
+        if (custName.getText().toString().equalsIgnoreCase("")) {
             errorMessage = errorMessage + "Please enter your Name\n";
             error = true;
         }
 
-        if(error){
+        if (error) {
             Toast toast = Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.TOP, 105, 50);
             toast.show();
@@ -173,57 +174,49 @@ public class CaptureSignature extends Activity {
     private String getTodaysDate() {
 
         final Calendar c = Calendar.getInstance();
-        int todaysDate =     (c.get(Calendar.YEAR) * 10000) +
+        int todaysDate = (c.get(Calendar.YEAR) * 10000) +
                 ((c.get(Calendar.MONTH) + 1) * 100) +
                 (c.get(Calendar.DAY_OF_MONTH));
-        Log.w("DATE:",String.valueOf(todaysDate));
-        return(String.valueOf(todaysDate));
+        Log.w("DATE:", String.valueOf(todaysDate));
+        return (String.valueOf(todaysDate));
 
     }
 
     private String getCurrentTime() {
 
         final Calendar c = Calendar.getInstance();
-        int currentTime =     (c.get(Calendar.HOUR_OF_DAY) * 10000) +
+        int currentTime = (c.get(Calendar.HOUR_OF_DAY) * 10000) +
                 (c.get(Calendar.MINUTE) * 100) +
                 (c.get(Calendar.SECOND));
-        Log.w("TIME:",String.valueOf(currentTime));
-        return(String.valueOf(currentTime));
+        Log.w("TIME:", String.valueOf(currentTime));
+        return (String.valueOf(currentTime));
 
     }
 
 
-    private boolean prepareDirectory()
-    {
-        try
-        {
-            if (makedirs())
-            {
+    private boolean prepareDirectory() {
+        try {
+            if (makedirs()) {
                 return true;
             } else {
                 return false;
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             //Toast.makeText(this, "Could not initiate File System.. Is Sdcard mounted properly?", 1000).show();
             return false;
         }
     }
 
-    private boolean makedirs()
-    {
+    private boolean makedirs() {
         File tempdir = new File(tempDir);
         if (!tempdir.exists())
             tempdir.mkdirs();
 
-        if (tempdir.isDirectory())
-        {
+        if (tempdir.isDirectory()) {
             File[] files = tempdir.listFiles();
-            for (File file : files)
-            {
-                if (!file.delete())
-                {
+            for (File file : files) {
+                if (!file.delete()) {
                     System.out.println("Failed to delete " + file);
                 }
             }
@@ -231,8 +224,7 @@ public class CaptureSignature extends Activity {
         return (tempdir.isDirectory());
     }
 
-    public class signature extends View
-    {
+    public class signature extends View {
         private static final float STROKE_WIDTH = 5f;
         private static final float HALF_STROKE_WIDTH = STROKE_WIDTH / 2;
         private Paint paint = new Paint();
@@ -242,8 +234,7 @@ public class CaptureSignature extends Activity {
         private float lastTouchY;
         private final RectF dirtyRect = new RectF();
 
-        public signature(Context context, AttributeSet attrs)
-        {
+        public signature(Context context, AttributeSet attrs) {
             super(context, attrs);
             paint.setAntiAlias(true);
             paint.setColor(Color.BLACK);
@@ -252,17 +243,14 @@ public class CaptureSignature extends Activity {
             paint.setStrokeWidth(STROKE_WIDTH);
         }
 
-        public void save(View v)
-        {
+        public void save(View v) {
             Log.v("log_tag", "Width: " + v.getWidth());
             Log.v("log_tag", "Height: " + v.getHeight());
-            if(mBitmap == null)
-            {
-                mBitmap =  Bitmap.createBitmap (mContent.getWidth(), mContent.getHeight(), Bitmap.Config.RGB_565);;
+            if (mBitmap == null) {
+                mBitmap = Bitmap.createBitmap(mContent.getWidth(), mContent.getHeight(), Bitmap.Config.RGB_565);
             }
             Canvas canvas = new Canvas(mBitmap);
-            try
-            {
+            try {
                 FileOutputStream mFileOutStream = new FileOutputStream(mypath);
 
                 v.draw(canvas);
@@ -270,7 +258,7 @@ public class CaptureSignature extends Activity {
                 mFileOutStream.flush();
                 mFileOutStream.close();
                 String url = Images.Media.insertImage(getContentResolver(), mBitmap, "title", null);
-                Log.v("log_tag","url: " + url);
+                Log.v("log_tag", "url: " + url);
                 //In case you want to delete the file
                 //boolean deleted = mypath.delete();
                 //Log.v("log_tag","deleted: " + mypath.toString() + deleted);
@@ -278,40 +266,47 @@ public class CaptureSignature extends Activity {
 
                 // *** Upload file to Server
                 boolean status = uploadFiletoServer(mypath.toString().trim(), strURLUpload);
-                if(status){
+                if (status) {
+                    namePhotoSplite = mypath.toString().trim().split("/");
+                    img_signature = namePhotoSplite[namePhotoSplite.length - 1];
+                    CustReciveCar();
                     msgShow("บันทึกลายเซนต์สำเร็จ");
-                }else {
+                } else {
                     msgShow("บันทึกลายเซนต์ไม่สำเร็จ!!");
                 }
 
-            }
-            catch(Exception e)
-            {
+            } catch (Exception e) {
                 Log.v("log_tag", e.toString());
             }
         }
 
-        public void clear()
-        {
+        private void CustReciveCar() {
+            String url = getString(R.string.url) + "CustReciveCar.php";
+            // Paste Parameters
+            List<NameValuePair> params = new ArrayList<NameValuePair>();
+            params.add(new BasicNameValuePair("order_id", order_id));
+            params.add(new BasicNameValuePair("img_signature", img_signature));
+
+            http.getHttpPost(url, params);
+        }
+
+        public void clear() {
             path.reset();
             invalidate();
         }
 
         @Override
-        protected void onDraw(Canvas canvas)
-        {
+        protected void onDraw(Canvas canvas) {
             canvas.drawPath(path, paint);
         }
 
         @Override
-        public boolean onTouchEvent(MotionEvent event)
-        {
+        public boolean onTouchEvent(MotionEvent event) {
             float eventX = event.getX();
             float eventY = event.getY();
             mGetSign.setEnabled(true);
 
-            switch (event.getAction())
-            {
+            switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     path.moveTo(eventX, eventY);
                     lastTouchX = eventX;
@@ -324,8 +319,7 @@ public class CaptureSignature extends Activity {
 
                     resetDirtyRect(eventX, eventY);
                     int historySize = event.getHistorySize();
-                    for (int i = 0; i < historySize; i++)
-                    {
+                    for (int i = 0; i < historySize; i++) {
                         float historicalX = event.getHistoricalX(i);
                         float historicalY = event.getHistoricalY(i);
                         expandDirtyRect(historicalX, historicalY);
@@ -350,32 +344,24 @@ public class CaptureSignature extends Activity {
             return true;
         }
 
-        private void debug(String string){
+        private void debug(String string) {
         }
 
-        private void expandDirtyRect(float historicalX, float historicalY)
-        {
-            if (historicalX < dirtyRect.left)
-            {
+        private void expandDirtyRect(float historicalX, float historicalY) {
+            if (historicalX < dirtyRect.left) {
                 dirtyRect.left = historicalX;
-            }
-            else if (historicalX > dirtyRect.right)
-            {
+            } else if (historicalX > dirtyRect.right) {
                 dirtyRect.right = historicalX;
             }
 
-            if (historicalY < dirtyRect.top)
-            {
+            if (historicalY < dirtyRect.top) {
                 dirtyRect.top = historicalY;
-            }
-            else if (historicalY > dirtyRect.bottom)
-            {
+            } else if (historicalY > dirtyRect.bottom) {
                 dirtyRect.bottom = historicalY;
             }
         }
 
-        private void resetDirtyRect(float eventX, float eventY)
-        {
+        private void resetDirtyRect(float eventX, float eventY) {
             dirtyRect.left = Math.min(lastTouchX, eventX);
             dirtyRect.right = Math.max(lastTouchX, eventX);
             dirtyRect.top = Math.min(lastTouchY, eventY);
@@ -464,7 +450,7 @@ public class CaptureSignature extends Activity {
             }
         }
 
-        private void msgShow(String strMsg){
+        private void msgShow(String strMsg) {
             Toast.makeText(getApplicationContext(), strMsg, Toast.LENGTH_SHORT).show();
         }
     }

@@ -32,7 +32,8 @@
         android:id="@+id/listViewCustomer"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:layout_margin="50dp" />
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp" />
 
 
 </RelativeLayout>
