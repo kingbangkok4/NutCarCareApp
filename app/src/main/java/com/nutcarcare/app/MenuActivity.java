@@ -48,6 +48,8 @@ public class MenuActivity extends Activity {
             }
         }
 
+        CheckLogin();
+
         btService = (Button) findViewById(R.id.btnService);
         btReceive = (Button) findViewById(R.id.btnReceive);
         btnExit =  (Button) findViewById(R.id.btnExit);
@@ -75,6 +77,13 @@ public class MenuActivity extends Activity {
                 startActivity(i);
             }
         });
+    }
+
+    private void CheckLogin() {
+        if(MyArrList == null){
+            Intent i = new Intent(getBaseContext(), MainActivity.class);
+            startActivity(i);
+        }
     }
 
 
