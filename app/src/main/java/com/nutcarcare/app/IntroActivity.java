@@ -70,7 +70,7 @@ public class IntroActivity extends Activity {
                 }*/
                 finish();
             }
-        }, 3000);
+        }, 5000);
     }
 }
 
