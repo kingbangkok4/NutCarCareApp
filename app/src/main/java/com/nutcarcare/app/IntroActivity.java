@@ -43,7 +43,7 @@ public class IntroActivity extends Activity {
         LinearLayout llProgress = (LinearLayout) findViewById(R.id.ll_progress);
         try {
             // give your gif image name here(example.gif).
-            GIFView gif = new GIFView(this, "file:///android_asset/loading002.gif");
+            GIFView gif = new GIFView(this, "file:///android_asset/loading.gif");
             llProgress.addView(gif);
         } catch (IOException e) {
             // TODO Auto-generated catch block
