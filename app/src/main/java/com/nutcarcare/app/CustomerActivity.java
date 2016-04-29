@@ -114,6 +114,7 @@ public class CustomerActivity extends Activity {
                         CarCustomer();
                         Intent i = new Intent(getBaseContext(), CarActivity.class);
                         i.putExtra("MyArrList", MyArrList);
+                        i.putExtra("cust_id", cust_id);
                         i.putExtra("sumTotal", sumTotal);
                         i.putExtra("strService", strService);
                         i.putExtra("license_plate", license_plate);
