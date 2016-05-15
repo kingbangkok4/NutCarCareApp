@@ -97,7 +97,7 @@ public class DatabaseActivity extends SQLiteOpenHelper {
 
 	}
 
-	public void InsertLogin(String username, String password, String type) {
+	/*public void InsertLogin(String username, String password, String type) {
 		SQLiteDatabase db;
 		try {
 			db = this.getReadableDatabase(); // Read Data
@@ -130,7 +130,7 @@ public class DatabaseActivity extends SQLiteOpenHelper {
 		} catch (Exception e) {
 			System.out.print(e.getMessage());
 		}
-	}
+	}*/
 
 	public ArrayList<HashMap<String, String>> CheckLogin() {
 		try {

@@ -1,179 +1,223 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@drawable/bg_orang"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroller"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true"
+    android:minHeight="800dp">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="บริการของเรา"
-        android:id="@+id/textView2"
-        android:gravity="center"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:textIsSelectable="true"
-        android:background="#ff3300" />
+        android:background="@drawable/bg3"
+        android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="ประเภทล้าง"
-        android:id="@+id/textView3"
-        android:layout_marginTop="42dp"
-        android:layout_below="@+id/textView2"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="#2600ff"
+            android:gravity="center"
+            android:text="บริการของเรา"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textIsSelectable="true" />
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ล้างสีภายนอก (120 บาท)"
-        android:id="@+id/checkBox1"
-        android:checked="false"
-        android:layout_below="@+id/textView3"
-        android:layout_alignParentStart="true" />
+        <CheckBox
+            android:id="@+id/checkBox1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="ทำความสะอาดภายใน (150 บาท)"
+            android:layout_below="@+id/checkBox17"
+            android:layout_alignParentStart="true" />
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ล้างสี+ดูดฝุ่น (200 บาท)"
-        android:id="@+id/checkBox2"
-        android:checked="false"
-        android:layout_above="@+id/checkBox4"
-        android:layout_centerHorizontal="true" />
+        <CheckBox
+            android:id="@+id/checkBox2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="อบโอโซน (300 บาท)"
+            android:layout_below="@+id/checkBox1"
+            android:layout_alignParentStart="true" />
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ล้างห้องเครื่อง (250 บาท)"
-        android:id="@+id/checkBox3"
-        android:layout_below="@+id/textView3"
-        android:layout_toEndOf="@+id/checkBox2"
-        android:checked="false" />
+        <CheckBox
+            android:id="@+id/checkBox3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="ขัดกระจกลบรอยน้ำ (500 บาท)"
+            android:layout_below="@+id/checkBox2"
+            android:layout_alignParentStart="true" />
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ล้างอัดฉีดช่วงล่าง (120 บาท)"
-        android:id="@+id/checkBox4"
-        android:layout_below="@+id/checkBox1"
-        android:layout_alignParentStart="true"
-        android:checked="false" />
+        <CheckBox
+            android:id="@+id/checkBox4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="ขัดล้อแม็กซ์ (300 บาท)"
+            android:layout_below="@+id/checkBox3"
+            android:layout_alignParentStart="true" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="ประเภทขัด"
-        android:id="@+id/textView4"
-        android:layout_below="@+id/checkBox4"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp" />
+        <CheckBox
+            android:id="@+id/checkBox5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="เคลือบสีด้วยน้ำยา (300 บาท)"
+            android:layout_below="@+id/checkBox4"
+            android:layout_alignParentStart="true" />
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ขัดเคลือบสี (300 บาท)"
-        android:id="@+id/checkBox5"
-        android:layout_below="@+id/textView4"
-        android:layout_alignParentStart="true" />
+        <CheckBox
+            android:id="@+id/checkBox6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="เคลือบกระจก (450  บาท)"
+            android:layout_below="@+id/checkBox5"
+            android:layout_alignParentStart="true" />
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ลงแว๊กซี่ (250  บาท)"
-        android:id="@+id/checkBox6"
-        android:layout_below="@+id/textView4"
-        android:layout_alignStart="@+id/checkBox2" />
+        <CheckBox
+            android:id="@+id/checkBox7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="เคลือบล้อแม็กซ์ (300 บาท)"
+            android:layout_below="@+id/checkBox6"
+            android:layout_alignParentStart="true" />
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ขัดลบรอยขีดข่วน (400 บาท)"
-        android:id="@+id/checkBox7"
-        android:layout_below="@+id/textView4"
-        android:layout_toEndOf="@+id/checkBox2" />
+        <CheckBox
+            android:id="@+id/checkBox8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="50dp"
+            android:text="ขจัดคราบยางมะตอย (500 บาท)"
+            android:checked="false"
+            android:layout_below="@+id/checkBox7"
+            android:layout_alignParentStart="true" />
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ขัดเคลือบไฟหน้า (200 บาท)"
-        android:id="@+id/checkBox8"
-        android:layout_marginRight="50dp"
-        android:layout_below="@+id/checkBox5"
-        android:layout_alignStart="@+id/checkBox5" />
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ขัดเบาะหนัง (200 บาท)"
-        android:id="@+id/checkBox9"
-        android:layout_marginRight="50dp"
-        android:layout_alignTop="@+id/checkBox8"
-        android:layout_alignStart="@+id/checkBox6" />
+        <Button
+            android:id="@+id/btnTotal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/button3"
+            android:text="คำนวนราคา"
+            android:layout_below="@+id/editTextTotal"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="ประเภทฟอก"
-        android:id="@+id/textView5"
-        android:layout_below="@+id/checkBox8"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp" />
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/button1"
+            android:text="ข้อมูลลูกค้า"
+            android:layout_below="@+id/btnTotal"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp" />
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ฟอกพรม(200 บาท)"
-        android:id="@+id/checkBox10"
-        android:layout_below="@+id/textView5"
-        android:layout_alignParentStart="true"
-        android:checked="false" />
+        <EditText
+            android:id="@+id/editTextTotal"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="#ffffff"
+            android:enabled="false"
+            android:gravity="center"
+            android:hint="ราคารวม (บาท)"
+            android:numeric="decimal"
+            android:layout_below="@+id/checkBox8"
+            android:layout_alignParentStart="true" />
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ฟอกเบาะพรม (500 บาท)"
-        android:id="@+id/checkBox11"
-        android:layout_below="@+id/textView5"
-        android:layout_alignStart="@+id/checkBox9"
-        android:checked="false" />
+        <Button
+            android:id="@+id/btnMain"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/button5"
+            android:text="เมนูหลัก"
+            android:layout_below="@+id/btnSubmit"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="คำนวนราคา"
-        android:id="@+id/btnTotal"
-        android:background="#ff6600"
-        android:layout_below="@+id/editTextTotal"
-        android:layout_alignEnd="@+id/editTextTotal"
-        android:layout_alignParentStart="true" />
+        <CheckBox
+            android:id="@+id/checkBox9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="ล้างสีภายนอก (150 บาท)"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView2" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="ยืนยัน"
-        android:id="@+id/btnSubmit"
-        android:background="#33ff00"
-        android:layout_below="@+id/btnTotal"
-        android:layout_alignParentStart="true" />
+        <CheckBox
+            android:id="@+id/checkBox10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="ล้างสี + ดูดฝุ่น (250 บาท)"
+            android:layout_below="@+id/checkBox9"
+            android:layout_alignParentStart="true" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:hint="ราคารวม (บาท)"
-        android:gravity="center"
-        android:enabled="false"
-        android:numeric="decimal"
-        android:id="@+id/editTextTotal"
-        android:background="#ffffff"
-        android:layout_below="@+id/checkBox11"
-        android:layout_marginTop="100dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
+        <CheckBox
+            android:id="@+id/checkBox11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="ล้างห้องเครื่อง (200 บาท)"
+            android:layout_below="@+id/checkBox10"
+            android:layout_alignParentStart="true" />
 
-</RelativeLayout>
+        <CheckBox
+            android:id="@+id/checkBox12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="ล้างอัดฉีดช่วงล่าง (200 บาท)"
+            android:layout_below="@+id/checkBox11"
+            android:layout_alignParentStart="true" />
+
+        <CheckBox
+            android:id="@+id/checkBox13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="ขัดเคลือบสี + ลงแว๊กซ์ (450 บาท)"
+            android:layout_below="@+id/checkBox12"
+            android:layout_alignParentStart="true" />
+
+        <CheckBox
+            android:id="@+id/checkBox14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="ขัดเคลือบไฟหน้า (300 บาท)"
+            android:layout_below="@+id/checkBox13"
+            android:layout_alignParentStart="true" />
+
+        <CheckBox
+            android:id="@+id/checkBox15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="ขัดเบาะหนัง (280 บาท)"
+            android:layout_below="@+id/checkBox14"
+            android:layout_alignParentStart="true" />
+
+        <CheckBox
+            android:id="@+id/checkBox16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="ฟอกพรม (300 บาท)"
+            android:layout_below="@+id/checkBox15"
+            android:layout_alignParentStart="true" />
+
+        <CheckBox
+            android:id="@+id/checkBox17"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="ฟอกเบาะพรม (320 บาท)"
+            android:layout_below="@+id/checkBox16"
+            android:layout_alignParentStart="true" />
+
+    </RelativeLayout>
+</ScrollView>

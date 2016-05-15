@@ -1,8 +1,12 @@
 <resources>
-    <string name="app_name">Nut Car Care Application</string>
+    <string name="app_name">ระบบสารสนเทศการจัดการบริการดูแลรักษารถ</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="external_dir">GetSignature</string>
+
+    <string name="url_network">http://192.168.56.1/nutcarcare/api/</string>
     <string name="url_localhost">http://10.0.3.2/nutcarcare/api/</string>
-    <string name="url_web">http://nutcarcare.com/api/</string>
+    <string name="url_web">http://www.nutcarcare.com/api/</string>
+    <string name="url">http://www.nutcarcare.com/api/</string>
 </resources>
