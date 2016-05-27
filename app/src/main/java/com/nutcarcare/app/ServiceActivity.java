@@ -5,20 +5,12 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.media.MediaActionSound;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.database.DatabaseActivity;
-
-import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,7 +20,7 @@ import java.util.HashMap;
  * Code formatting shortcut in Android studio : Ctrl + Atl + L
  */
 public class ServiceActivity extends Activity {
-    private CheckBox ck1, ck2, ck3, ck4, ck5, ck6, ck7, ck8;
+    private CheckBox ck1, ck2, ck3, ck4, ck5, ck6, ck7, ck8, ck9, ck10, ck11, ck12, ck13, ck14, ck15, ck16, ck17;
     private EditText txtTotal;
     private Button btTotal, btSubmit, btMain;
     private Double sumTotal = 0.00;
@@ -61,6 +53,16 @@ public class ServiceActivity extends Activity {
         ck6 = (CheckBox) findViewById(R.id.checkBox6);
         ck7 = (CheckBox) findViewById(R.id.checkBox7);
         ck8 = (CheckBox) findViewById(R.id.checkBox8);
+
+        ck9 = (CheckBox) findViewById(R.id.checkBox9);
+        ck10 = (CheckBox) findViewById(R.id.checkBox10);
+        ck11 = (CheckBox) findViewById(R.id.checkBox11);
+        ck12 = (CheckBox) findViewById(R.id.checkBox12);
+        ck13 = (CheckBox) findViewById(R.id.checkBox13);
+        ck14 = (CheckBox) findViewById(R.id.checkBox14);
+        ck15 = (CheckBox) findViewById(R.id.checkBox15);
+        ck16 = (CheckBox) findViewById(R.id.checkBox16);
+        ck17 = (CheckBox) findViewById(R.id.checkBox17);
 
         txtTotal = (EditText) findViewById(R.id.editTextTotal);
         btTotal = (Button) findViewById(R.id.btnTotal);
@@ -126,6 +128,43 @@ public class ServiceActivity extends Activity {
             strDetailService.append("ขจัดคราบยางมะตอย (500 บาท) ");
         }
 
+        if (ck9.isChecked()) {
+            sumTotal += 150.00;
+            strDetailService.append("ล้างสีภายนอก (150 บาท) ");
+        }
+        if (ck10.isChecked()) {
+            sumTotal += 250.00;
+            strDetailService.append("ล้างสี + ดูดฝุ่น (250 บาท) ");
+        }
+        if (ck11.isChecked()) {
+            sumTotal += 200.00;
+            strDetailService.append("ล้างห้องเครื่อง (200 บาท) ");
+        }
+        if (ck12.isChecked()) {
+            sumTotal += 200.00;
+            strDetailService.append("ล้างอัดฉีดช่วงล่าง (200 บาท) ");
+        }
+        if (ck13.isChecked()) {
+            sumTotal += 450.00;
+            strDetailService.append("ขัดเคลือบสี + ลงแว๊กซ์ (450 บาท) ");
+        }
+        if (ck14.isChecked()) {
+            sumTotal += 300.00;
+            strDetailService.append("ขัดเคลือบไฟหน้า (300 บาท) ");
+        }
+        if (ck15.isChecked()) {
+            sumTotal += 280.00;
+            strDetailService.append("ขัดเบาะหนัง (280 บาท) ");
+        }
+        if (ck16.isChecked()) {
+            sumTotal += 300.00;
+            strDetailService.append("ฟอกพรม (300 บาท) ");
+        }
+        if (ck17.isChecked()) {
+            sumTotal += 320.00;
+            strDetailService.append("ฟอกเบาะพรม (320 บาท) ");
+        }
+
         txtTotal.setText(decimalFormat.format(sumTotal).toString()+" บาท");
         txtTotal.setTextColor(Color.BLUE);
     }
@@ -149,7 +188,7 @@ public class ServiceActivity extends Activity {
                             dialog.cancel();
                         }
                     })
-                   .show();
+                    .show();
         }
     }
 

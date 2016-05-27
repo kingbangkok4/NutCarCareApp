@@ -25,7 +25,8 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="ชื่อลูกค้า"
         android:id="@+id/textView7"
-        android:layout_marginTop="20dp" />
+        android:layout_marginTop="20dp"
+        android:layout_margin="5dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,7 +38,8 @@
             android:id="@+id/editTextCustomer"
             android:background="#fff"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1.03" />
+            android:layout_weight="1.03"
+            android:layout_margin="5dp" />
         <Button
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -54,14 +56,16 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="เบอร์โทรศัพท์"
         android:id="@+id/textView8"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:layout_margin="5dp" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:id="@+id/editTextMobile"
         android:inputType="phone"
-        android:background="#fff" />
+        android:background="#fff"
+        android:layout_margin="5dp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -69,14 +73,16 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="อีเมล์"
         android:id="@+id/textView9"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:layout_margin="5dp" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:id="@+id/editTextEmail"
         android:inputType="textEmailAddress"
-        android:background="#fff" />
+        android:background="#fff"
+        android:layout_margin="5dp" />
 
     <Button
         android:layout_width="match_parent"
