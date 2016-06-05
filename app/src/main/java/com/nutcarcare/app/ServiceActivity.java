@@ -6,21 +6,37 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.Toast;
+
+import com.http.Http;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Administrator on 1/20/2016.
  * Code formatting shortcut in Android studio : Ctrl + Atl + L
  */
 public class ServiceActivity extends Activity {
-    private CheckBox ck1, ck2, ck3, ck4, ck5, ck6, ck7, ck8, ck9, ck10, ck11, ck12, ck13, ck14, ck15, ck16, ck17;
+  /*  private CheckBox ck1, ck2, ck3, ck4, ck5, ck6, ck7, ck8, ck9, ck10, ck11, ck12, ck13, ck14, ck15, ck16, ck17;*/
     private EditText txtTotal;
     private Button btTotal, btSubmit, btMain;
     private Double sumTotal = 0.00;
@@ -29,11 +45,22 @@ public class ServiceActivity extends Activity {
     //private DatabaseActivity myDb = new DatabaseActivity(this);
     private ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
     private ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
+    ArrayList<HashMap<String, String>> ArrListService = new ArrayList<HashMap<String, String>>();
+    ListView listVservice;
+    private Http http = new Http();
+    HashMap<String, String> map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service);
+
+        // Permission StrictMode
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
 
         Bundle extras = getIntent().getExtras();
         // เช็คว่ามีค่าที่ส่งมาจากหน้าอื่นหรือไม่ถ้ามีจะไม่เท่ากับ null
@@ -45,25 +72,7 @@ public class ServiceActivity extends Activity {
             }
         }
 
-        ck1 = (CheckBox) findViewById(R.id.checkBox1);
-        ck2 = (CheckBox) findViewById(R.id.checkBox2);
-        ck3 = (CheckBox) findViewById(R.id.checkBox3);
-        ck4 = (CheckBox) findViewById(R.id.checkBox4);
-        ck5 = (CheckBox) findViewById(R.id.checkBox5);
-        ck6 = (CheckBox) findViewById(R.id.checkBox6);
-        ck7 = (CheckBox) findViewById(R.id.checkBox7);
-        ck8 = (CheckBox) findViewById(R.id.checkBox8);
-
-        ck9 = (CheckBox) findViewById(R.id.checkBox9);
-        ck10 = (CheckBox) findViewById(R.id.checkBox10);
-        ck11 = (CheckBox) findViewById(R.id.checkBox11);
-        ck12 = (CheckBox) findViewById(R.id.checkBox12);
-        ck13 = (CheckBox) findViewById(R.id.checkBox13);
-        ck14 = (CheckBox) findViewById(R.id.checkBox14);
-        ck15 = (CheckBox) findViewById(R.id.checkBox15);
-        ck16 = (CheckBox) findViewById(R.id.checkBox16);
-        ck17 = (CheckBox) findViewById(R.id.checkBox17);
-
+        listVservice = (ListView)findViewById(R.id.listViewService);
         txtTotal = (EditText) findViewById(R.id.editTextTotal);
         btTotal = (Button) findViewById(R.id.btnTotal);
         btSubmit = (Button) findViewById(R.id.btnSubmit);
@@ -89,15 +98,76 @@ public class ServiceActivity extends Activity {
                 startActivity(i);
             }
         });
+
+        GetService();
+    }
+
+    private void GetService() {
+        String url = getString(R.string.url) + "serviceListJson.php";
+        // Paste Parameters
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("name", ""));
+        try {
+            JSONArray data = new JSONArray(http.getJSONUrl(url, params));
+            if (data.length() > 0) {
+                ArrListService.clear();
+                for (int i = 0; i < data.length(); i++) {
+                    JSONObject c = data.getJSONObject(i);
+                    map = new HashMap<String, String>();
+                    map.put("id", c.getString("id"));
+                    map.put("name", c.getString("name"));
+                    map.put("price", c.getString("price"));
+                    map.put("created_date", c.getString("created_date"));
+                    map.put("promotion", c.getString("promotion"));
+                    map.put("active", c.getString("active"));
+                    map.put("currency", "บาท");
+                    ArrListService.add(map);
+                }
+
+                SimpleAdapter sAdap;
+                sAdap = new SimpleAdapter(getBaseContext(), ArrListService,
+                        R.layout.activity_column_service, new String[]{"name", "currency", "price", ""}, new int[]{R.id.ColName, R.id.ColCurrency, R.id.ColPrice, R.id.ColChk});
+                listVservice.setAdapter(sAdap);
+               /* listVservice.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    public void onItemClick(AdapterView<?> myAdapter, View myView,
+                                            int position, long mylng) {
+
+                    }
+                });*/
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private void SumTotal() {
         sumTotal = 0.00;
         strDetailService.setLength(0);
         txtTotal.setText("");
-        if (ck1.isChecked()) {
+
+        int count = listVservice.getAdapter().getCount();
+        for (int i = 0; i < count; i++) {
+            LinearLayout itemLayout = (LinearLayout)listVservice.getChildAt(i); // Find by under LinearLayout
+            CheckBox checkbox = (CheckBox)itemLayout.findViewById(R.id.ColChk);
+            if(checkbox.isChecked())
+            {
+                sumTotal += Double.parseDouble(ArrListService.get(i).get("price").toString());
+                strDetailService.append(ArrListService.get(i).get("name").toString()
+                        +"("
+                        +ArrListService.get(i).get("price").toString()
+                        +")"
+                        +" "
+                );
+
+               /* Log.d("name " + String.valueOf(i), checkbox.getTag().toString());
+                Toast.makeText(getBaseContext(), checkbox.getTag().toString(), Toast.LENGTH_LONG).show();*/
+            }
+        }
+
+     /*   if (ck1.isChecked()) {
             sumTotal += 150.00;
-            strDetailService.append("ทำความสะอาดภายใน (150 บาท) ");
+            ทำความสะอาดภายใน (150 บาท) ");
         }
         if (ck2.isChecked()) {
             sumTotal += 300.00;
@@ -163,7 +233,7 @@ public class ServiceActivity extends Activity {
         if (ck17.isChecked()) {
             sumTotal += 320.00;
             strDetailService.append("ฟอกเบาะพรม (320 บาท) ");
-        }
+        }*/
 
         txtTotal.setText(decimalFormat.format(sumTotal).toString()+" บาท");
         txtTotal.setTextColor(Color.BLUE);
