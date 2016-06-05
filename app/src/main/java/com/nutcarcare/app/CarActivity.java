@@ -32,10 +32,10 @@ import java.util.List;
  */
 public class CarActivity extends Activity {
     // private DatabaseActivity myDb = new DatabaseActivity(this);
-    //ArrayList<HashMap<String, String>> CarList = new ArrayList<HashMap<String, String>>();
+    ArrayList<HashMap<String, String>> CarList = new ArrayList<HashMap<String, String>>();
     HashMap<String, String> map;
     private Spinner spinner_type_car;
-    private Button btBack, btPhotoCare, btMain, btOrder;
+    private Button btBack, btPhotoCare, btMain;
     private EditText txtCustomer, txtMobile, txtEmail, txtLicensePlate, txtBrand, txtColor, txtScar;
     private String[] type_care;
     private Http http = new Http();
@@ -82,71 +82,93 @@ public class CarActivity extends Activity {
             sumTotal = extras.getDouble("sumTotal");
             strService = extras.getString("strService");
         }
-            // Permission StrictMode
-            if (android.os.Build.VERSION.SDK_INT > 9) {
-                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-                        .permitAll().build();
-                StrictMode.setThreadPolicy(policy);
+        // Permission StrictMode
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        spinner_type_car = (Spinner) findViewById(R.id.cmbType);
+        btBack = (Button) findViewById(R.id.btnBack);
+        btPhotoCare = (Button) findViewById(R.id.btnPhotoCare);
+        btMain = (Button) findViewById(R.id.btnMain);
+
+
+        txtLicensePlate = (EditText) findViewById(R.id.editTextLicensePlate);
+        txtBrand = (EditText) findViewById(R.id.editTextBrand);
+        txtColor = (EditText) findViewById(R.id.editTextColor);
+        txtScar = (EditText) findViewById(R.id.editTextScar);
+
+
+        txtLicensePlate.setText(license_plate);
+        txtBrand.setText(brand);
+        txtColor.setText(color);
+        txtScar.setText(scar);
+
+        LoadTypeCar();
+
+        spinner_type_car.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent,
+                                       View view, int position, long id) {
+                spinner_type_car.setSelection(position);
+                type = (String) spinner_type_car.getSelectedItem();
             }
 
-            spinner_type_car = (Spinner) findViewById(R.id.cmbType);
-            btBack = (Button) findViewById(R.id.btnBack);
-            btPhotoCare = (Button) findViewById(R.id.btnPhotoCare);
-            btMain = (Button) findViewById(R.id.btnMain);
-            btOrder = (Button) findViewById(R.id.btnOrder);
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
 
-            txtLicensePlate = (EditText) findViewById(R.id.editTextLicensePlate);
-            txtBrand = (EditText) findViewById(R.id.editTextBrand);
-            txtColor = (EditText) findViewById(R.id.editTextColor);
-            txtScar = (EditText) findViewById(R.id.editTextScar);
+            }
+        });
+        btBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getBaseContext(), CustomerActivity.class);
+                i.putExtra("MyArrList", MyArrList);
+                i.putExtra("sumTotal", sumTotal);
+                i.putExtra("strService", strService);
+                startActivity(i);
+            }
+        });
+        btMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getBaseContext(), MenuActivity.class);
+                i.putExtra("MyArrList", MyArrList);
+                startActivity(i);
+            }
+        });
+        btPhotoCare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-
-            txtLicensePlate.setText(license_plate);
-            txtBrand.setText(brand);
-            txtColor.setText(color);
-            txtScar.setText(scar);
-
-            LoadTypeCar();
-
-            spinner_type_car.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent,
-                                           View view, int position, long id) {
-                    spinner_type_car.setSelection(position);
-                    type = (String) spinner_type_car.getSelectedItem();
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> arg0) {
-
-                }
-            });
-            btBack.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent i = new Intent(getBaseContext(), CustomerActivity.class);
-                    i.putExtra("MyArrList", MyArrList);
-                    i.putExtra("sumTotal", sumTotal);
-                    i.putExtra("strService", strService);
-                    startActivity(i);
-                }
-            });
-            btMain.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent i = new Intent(getBaseContext(), MenuActivity.class);
-                    i.putExtra("MyArrList", MyArrList);
-                    startActivity(i);
-                }
-            });
-            btPhotoCare.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    license_plate = txtLicensePlate.getText().toString().trim();
-                    brand = txtBrand.getText().toString().trim();
-                    color = txtColor.getText().toString().trim();
-                    scar = txtScar.getText().toString().trim();
-
+                license_plate = txtLicensePlate.getText().toString().trim();
+                brand = txtBrand.getText().toString().trim();
+                color = txtColor.getText().toString().trim();
+                scar = txtLicensePlate.getText().toString().trim();
+                if ("".equals(license_plate)
+                        || "".equals(brand)
+                        || "".equals(type)
+                        || "".equals(color)
+                        || "".equals(scar)
+                        || "".equals(cust_id)) {
+                    builder.setTitle("แจ้งเตือน");
+                    builder.setMessage("กรุณาใส่ข้อมูลรถให้ครบถ้วน !")
+                            .setCancelable(true)
+                            .setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            })
+                            .setNegativeButton("ปิด",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.cancel();
+                                        }
+                                    }).show();
+                } else {
                     Intent i = new Intent(getBaseContext(), PhotoCarActivity.class);
                     i.putExtra("MyArrList", MyArrList);
 
@@ -161,17 +183,13 @@ public class CarActivity extends Activity {
                     i.putExtra("strService", strService);
                     startActivity(i);
                 }
-            });
-            btOrder.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    OrderConfirm();
-                }
-            });
+            }
+        });
+
     }
 
 
-    private void OrderConfirm() {
+  /*  private void OrderConfirm() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         String msgStatus = "";
         license_plate = txtLicensePlate.getText().toString().trim();
@@ -185,7 +203,7 @@ public class CarActivity extends Activity {
                 || "".equals(scar)
                 || "".equals(cust_id)) {
             builder.setTitle("แจ้งเตือน");
-            builder.setMessage("กรุณาใส่ข้อมูลลูกค้าให้ครบถ้วน !")
+            builder.setMessage("กรุณาใส่ข้อมูลรถให้ครบถ้วน !")
                     .setCancelable(true)
                     .setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
@@ -244,15 +262,15 @@ public class CarActivity extends Activity {
                         }
                             dialog.cancel();
                         }
-                    })/*
+                    })*//*
                     .setNegativeButton("ปิด",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     dialog.cancel();
                                 }
-                            })*/.show();
+                            })*//*.show();
         }
-    }
+    }*/
 
     private void DialogSearchCustomer(String strCustomer) {
         View listCustomerView = View.inflate(this, R.layout.dialog_list_customer, null);

@@ -42,48 +42,57 @@
         <Button
             android:id="@+id/btnTakePhoto"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:text="Take Photo"
             android:background="#03dfbb" />
         <Button
             android:id="@+id/btnUploadFront"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:text="Upload Photo (หน้า)"
             android:background="#dbf277"
             android:layout_marginTop="1dp" />
         <Button
             android:id="@+id/btnUploadLeft"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:text="Upload Photo (ซ้าย)"
             android:background="#dbf277"
             android:layout_marginTop="1dp" />
         <Button
             android:id="@+id/btnUploadRight"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:text="Upload Photo (ขวา)"
             android:background="#dbf277"
             android:layout_marginTop="1dp" />
         <Button
             android:id="@+id/btnUploadBehide"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:text="Upload Photo (หลัง)"
             android:background="#dbf277"
             android:layout_marginTop="1dp" />
         <Button
             android:id="@+id/btnUploadTop"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:text="Upload Photo (บน)"
             android:background="#dbf277"
             android:layout_marginTop="1dp" />
         <Button
+            android:id="@+id/btnOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="ยืนยันการใช้บริการ"
+            android:background="#0ca2f3"
+            android:layout_marginTop="1dp"
+            android:textSize="20dp"
+            android:textStyle="bold|italic" />
+        <Button
             android:id="@+id/btnBack"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:text="กลับ"
             android:background="#f30caa"
             android:layout_marginTop="1dp"
