@@ -87,7 +87,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="ข้อมูลรถ"
+        android:text="กรอกข้อมูลรถ"
         android:id="@+id/btnCare"
         android:background="@drawable/button1"
         android:layout_below="@+id/editTextTotal"
