@@ -41,6 +41,7 @@ public class CustomerActivity extends Activity {
     private ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
     private Double sumTotal = 0.00;
     private String strService = "";
+    private ArrayList sumService = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,8 @@ public class CustomerActivity extends Activity {
             }
             sumTotal = extras.getDouble("sumTotal");
             strService = extras.getString("strService");
+            sumService = (ArrayList<String>) extras
+                    .getSerializable("sumService");
         }
 
         // Permission StrictMode
@@ -122,6 +125,7 @@ public class CustomerActivity extends Activity {
                         i.putExtra("type", type);
                         i.putExtra("color", color);
                         i.putExtra("scar", scar);
+                        i.putExtra("sumService", sumService);
                         startActivity(i);
                     }
                 }

@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * Created by Administrator on 3/19/2016.
  */
-public class ReceiveActivity extends Activity{
+public class UpdateStatusActivity extends Activity{
     public static final int SIGNATURE_ACTIVITY = 1;
     private ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
     private ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
@@ -38,7 +38,7 @@ public class ReceiveActivity extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_receive);
+        setContentView(R.layout.activity_update_status);
 
         // Permission StrictMode
         if (android.os.Build.VERSION.SDK_INT > 9) {
@@ -88,7 +88,6 @@ public class ReceiveActivity extends Activity{
                     map = new HashMap<String, String>();
                     map.put("order_id", c.getString("id"));
                     map.put("name", c.getString("name"));
-                    map.put("license_plate", c.getString("license_plate"));
                     ArrListCustomer.add(map);
                 }
 

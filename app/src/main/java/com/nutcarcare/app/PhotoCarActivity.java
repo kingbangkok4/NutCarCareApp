@@ -62,6 +62,7 @@ public class PhotoCarActivity extends Activity {
 
     static String strSDCardPathName = Environment.getExternalStorageDirectory() + "/temp_picture" + "/";
     static String strURLUpload = "http://www.nutcarcare.com/api/uploadFile.php";
+    private ArrayList sumService = new ArrayList<String>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -84,6 +85,8 @@ public class PhotoCarActivity extends Activity {
             cust_id = extras.getString("cust_id");
             sumTotal = extras.getDouble("sumTotal");
             strService = extras.getString("strService");
+            sumService = (ArrayList<String>) extras
+                    .getSerializable("sumService");
         }
 
         // Permission StrictMode
@@ -125,6 +128,7 @@ public class PhotoCarActivity extends Activity {
                 i.putExtra("cust_id", cust_id);
                 i.putExtra("sumTotal", sumTotal);
                 i.putExtra("strService", strService);
+                i.putExtra("sumService", sumService);
                 startActivity(i);
             }
         });
@@ -351,6 +355,7 @@ public class PhotoCarActivity extends Activity {
     private void OrderConfirm() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         String msgStatus = "";
+        String orderId = "";
 
         front_image = photoCarArray[0];
         left_image = photoCarArray[1];
@@ -408,6 +413,7 @@ public class PhotoCarActivity extends Activity {
                     if (data.length() > 0) {
                         JSONObject c = data.getJSONObject(0);
                         msgStatus = c.getString("error");
+                        orderId = c.getString("id");
                     }
                 } catch (JSONException e) {
                     // TODO Auto-generated catch block
@@ -420,11 +426,29 @@ public class PhotoCarActivity extends Activity {
         }
         builder.setTitle("สถานะการบันทึก");
         final String finalMsgStatus = msgStatus;
+        final String finalOrderId = orderId;
         builder.setMessage(msgStatus)
                 .setCancelable(true)
                 .setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         if ("บันทึกการใช้บริการสำเร็จ".equals(finalMsgStatus)) {
+                            for (int i = 0; i < sumService.size(); i++) {
+                                String url = getString(R.string.url) + "saveSumService.php";
+                                // Paste Parameters
+                                List<NameValuePair> params = new ArrayList<NameValuePair>();
+                                params.add(new BasicNameValuePair("name", sumService.get(i).toString()));
+                                params.add(new BasicNameValuePair("ref_orderId", finalOrderId));
+                                try {
+                                    JSONArray data = new JSONArray(http.getJSONUrl(url, params));
+                                    if (data.length() > 0) {
+                                        //JSONObject c = data.getJSONObject(0);
+                                    }
+                                } catch (JSONException e) {
+                                    // TODO Auto-generated catch block
+                                    e.printStackTrace();
+                                }
+                            }
+
                             Intent i = new Intent(getBaseContext(), MenuActivity.class);
                             i.putExtra("MyArrList", MyArrList);
                             startActivity(i);

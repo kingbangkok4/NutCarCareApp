@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
@@ -49,6 +50,7 @@ public class ServiceActivity extends Activity {
     ListView listVservice;
     private Http http = new Http();
     HashMap<String, String> map;
+    private ArrayList sumService = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,11 +149,14 @@ public class ServiceActivity extends Activity {
         txtTotal.setText("");
 
         int count = listVservice.getAdapter().getCount();
+        sumService = new ArrayList<String>();
         for (int i = 0; i < count; i++) {
             LinearLayout itemLayout = (LinearLayout)listVservice.getChildAt(i); // Find by under LinearLayout
             CheckBox checkbox = (CheckBox)itemLayout.findViewById(R.id.ColChk);
             if(checkbox.isChecked())
             {
+                sumService.add(ArrListService.get(i).get("name").toString());
+
                 sumTotal += Double.parseDouble(ArrListService.get(i).get("price").toString());
                 strDetailService.append(ArrListService.get(i).get("name").toString()
                         +"("
@@ -248,6 +253,7 @@ public class ServiceActivity extends Activity {
             i.putExtra("MyArrList", MyArrList);
             i.putExtra("sumTotal", sumTotal);
             i.putExtra("strService", strService);
+            i.putExtra("sumService", sumService);
             startActivity(i);
         }else {
             builder.setTitle("แจ้งเตือน");

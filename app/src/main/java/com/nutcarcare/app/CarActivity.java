@@ -47,6 +47,7 @@ public class CarActivity extends Activity {
     private String[] photoCarArray = new String[5];
     private String[] tmpPhotoCarArray;
     private String front_image = "", left_image = "", right_image = "", behide_image = "", top_image = "";
+    private ArrayList sumService = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +82,8 @@ public class CarActivity extends Activity {
             cust_id = extras.getString("cust_id");
             sumTotal = extras.getDouble("sumTotal");
             strService = extras.getString("strService");
+            sumService = (ArrayList<String>) extras
+                    .getSerializable("sumService");
         }
         // Permission StrictMode
         if (android.os.Build.VERSION.SDK_INT > 9) {
@@ -181,6 +184,7 @@ public class CarActivity extends Activity {
 
                     i.putExtra("sumTotal", sumTotal);
                     i.putExtra("strService", strService);
+                    i.putExtra("sumService", sumService);
                     startActivity(i);
                 }
             }
