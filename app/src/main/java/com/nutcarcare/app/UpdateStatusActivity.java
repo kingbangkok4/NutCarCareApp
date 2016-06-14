@@ -38,7 +38,7 @@ public class UpdateStatusActivity extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_update_status);
+        setContentView(R.layout.activity_receive);
 
         // Permission StrictMode
         if (android.os.Build.VERSION.SDK_INT > 9) {
@@ -88,6 +88,7 @@ public class UpdateStatusActivity extends Activity{
                     map = new HashMap<String, String>();
                     map.put("order_id", c.getString("id"));
                     map.put("name", c.getString("name"));
+                    map.put("license_plate", c.getString("license_plate"));
                     ArrListCustomer.add(map);
                 }
 

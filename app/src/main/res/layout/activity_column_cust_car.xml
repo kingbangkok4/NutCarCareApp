@@ -7,7 +7,7 @@
         android:id="@+id/ColName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="0.82"
+        android:layout_weight="1.19"
         android:gravity="center"
         android:text="name"
         android:textSize="20dp" />

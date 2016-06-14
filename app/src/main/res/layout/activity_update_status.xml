@@ -7,7 +7,7 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="ลูกค้าที่ยังไม่ได้มารับรถ"
+        android:text="อัพเดทสถานะการใช้บริการ"
         android:id="@+id/textView2"
         android:gravity="center"
         android:layout_alignParentTop="true"
@@ -27,13 +27,12 @@
         android:layout_centerHorizontal="true" />
 
     <ListView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/listViewCustomer"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp" />
+        android:layout_below="@+id/textView2"
+        android:layout_above="@+id/btnBack"
+        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>
