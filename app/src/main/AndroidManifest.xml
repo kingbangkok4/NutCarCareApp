@@ -44,6 +44,7 @@
         <activity android:name=".PhotoCarActivity" android:screenOrientation="portrait" />
         <activity android:name=".CaptureSignature" android:screenOrientation="portrait" />
         <activity android:name=".UpdateStatusActivity" android:screenOrientation="portrait" />
+        <activity android:name=".StatusDetailActivity" android:screenOrientation="portrait" />
 
     </application>
 

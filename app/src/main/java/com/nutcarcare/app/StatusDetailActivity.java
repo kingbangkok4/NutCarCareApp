@@ -11,6 +11,7 @@ import com.http.Http;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import com.common.CommonClass;
 
 /**
  * Created by Administrator on 14/06/2559.
@@ -21,9 +22,10 @@ public class StatusDetailActivity extends Activity{
     HashMap<String, String> map;
     private Spinner spinner_type_car;
     private Button btBack, btPhotoCare, btMain;
-    private EditText txtCustomer, txtMobile, txtEmail, txtLicensePlate, txtBrand, txtColor, txtScar;
+    private EditText txtName, txtMobile, txtLicensePlate, txtDate, txtStatus;
     private String[] type_care;
     private Http http = new Http();
+    private CommonClass common = new CommonClass();
     private ArrayList<HashMap<String, String>> MyArrList = new ArrayList<HashMap<String, String>>();
     private ArrayList<HashMap<String, String>> CarTypeArrList = new ArrayList<HashMap<String, String>>();
     private ArrayList<HashMap<String, String>> tmpMyArrList = new ArrayList<HashMap<String, String>>();
@@ -32,7 +34,7 @@ public class StatusDetailActivity extends Activity{
     private String[] tmpPhotoCarArray;
     private String front_image = "", left_image = "", right_image = "", behide_image = "", top_image = "";
     private ArrayList sumService = new ArrayList<String>();
-    private String order_id = "",  name = "", license_plate = "", phone = "", order_date = "";
+    private String order_id = "",  name = "", license_plate = "", mobile = "", order_date = "", status = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +52,23 @@ public class StatusDetailActivity extends Activity{
         if (extras != null) {
             order_id = extras.getString("order_id");
             order_date = extras.getString("order_date");
+            status = extras.getString("status");
             license_plate = extras.getString("license_plate");
             name = extras.getString("name");
-            phone = extras.getString("phone");
+            mobile = extras.getString("mobile");
         }
+        //txtName, txtMobile, txtLicensePlate, txtDate, txtStatus;
+        txtName = (EditText)findViewById(R.id.editTextCust);
+        txtLicensePlate = (EditText)findViewById(R.id.editTextLicensePlate);
+        txtMobile = (EditText)findViewById(R.id.editTextMobile);
+        txtDate = (EditText)findViewById(R.id.editTextDate);
+        txtStatus = (EditText)findViewById(R.id.editTextStatus);
+
+        txtName.setText(name);
+        txtLicensePlate.setText(license_plate);
+        txtMobile.setText(mobile);
+        txtDate.setText(order_date);
+        txtStatus.setText(common.ConvertCodeToStatus(status));
     }
 
 

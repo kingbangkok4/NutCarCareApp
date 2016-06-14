@@ -87,8 +87,11 @@ public class UpdateStatusActivity extends Activity{
                     JSONObject c = data.getJSONObject(i);
                     map = new HashMap<String, String>();
                     map.put("order_id", c.getString("id"));
-                    map.put("name", c.getString("name"));
+                    map.put("order_date", c.getString("order_date"));
+                    map.put("status", c.getString("status"));
                     map.put("license_plate", c.getString("license_plate"));
+                    map.put("name", c.getString("name"));
+                    map.put("mobile", c.getString("mobile"));
                     ArrListCustomer.add(map);
                 }
 
@@ -100,12 +103,20 @@ public class UpdateStatusActivity extends Activity{
                     public void onItemClick(AdapterView<?> myAdapter, View myView,
                                             int position, long mylng) {
                         String order_id = ArrListCustomer.get(position).get("order_id").toString();
+                        String order_date = ArrListCustomer.get(position).get("order_date").toString();
+                        String status = ArrListCustomer.get(position).get("status").toString();
+                        String license_plate = ArrListCustomer.get(position).get("license_plate").toString();
                         String name = ArrListCustomer.get(position).get("name").toString();
+                        String mobile = ArrListCustomer.get(position).get("mobile").toString();
 
-                        Intent i = new Intent(getBaseContext(), CaptureSignature.class);
+                        Intent i = new Intent(getBaseContext(), StatusDetailActivity.class);
                         i.putExtra("order_id", order_id);
+                        i.putExtra("order_date", order_date);
+                        i.putExtra("status", status);
+                        i.putExtra("license_plate", license_plate);
                         i.putExtra("name", name);
-                        startActivityForResult(i, SIGNATURE_ACTIVITY);
+                        i.putExtra("mobile", mobile);
+                        startActivity(i);
 
                     }
                 });
