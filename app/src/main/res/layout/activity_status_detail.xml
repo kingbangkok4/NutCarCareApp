@@ -130,7 +130,7 @@
         android:layout_marginTop="20dp" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:text="ยกเลิก"
         android:id="@+id/btnCancel"
@@ -140,8 +140,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_gravity="center_horizontal" />
+        android:layout_marginTop="5dp" />
 
     <Button
         android:layout_width="match_parent"
