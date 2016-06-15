@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="ข้อมูลรถ"
+        android:text="รายละเอียดออเดอร์"
         android:id="@+id/textView6"
         android:gravity="center"
         android:layout_alignParentTop="true"
@@ -37,6 +37,7 @@
         android:inputType="text"
         android:background="#fff"
         android:layout_marginLeft="5dp"
+        android:enabled="false"
         android:layout_marginRight="5dp" />
 
     <TextView
@@ -54,6 +55,7 @@
         android:id="@+id/editTextLicensePlate"
         android:inputType="text"
         android:background="#fff"
+        android:enabled="false"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp" />
 
@@ -72,6 +74,7 @@
         android:id="@+id/editTextMobile"
         android:inputType="text"
         android:background="#fff"
+        android:enabled="false"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp" />
 
@@ -90,6 +93,7 @@
         android:id="@+id/editTextDate"
         android:inputType="text"
         android:background="#fff"
+        android:enabled="false"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp" />
 

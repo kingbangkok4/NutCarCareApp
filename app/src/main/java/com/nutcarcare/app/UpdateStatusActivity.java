@@ -73,7 +73,7 @@ public class UpdateStatusActivity extends Activity{
     }
 
     private void LoadNameCustomer() {
-        String url = getString(R.string.url) + "customerRecivetJson.php";
+        String url = getString(R.string.url) + "customerStutustJson.php";
 
         // Paste Parameters
         List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -92,6 +92,7 @@ public class UpdateStatusActivity extends Activity{
                     map.put("license_plate", c.getString("license_plate"));
                     map.put("name", c.getString("name"));
                     map.put("mobile", c.getString("mobile"));
+                    map.put("email", c.getString("email"));
                     ArrListCustomer.add(map);
                 }
 
@@ -108,6 +109,7 @@ public class UpdateStatusActivity extends Activity{
                         String license_plate = ArrListCustomer.get(position).get("license_plate").toString();
                         String name = ArrListCustomer.get(position).get("name").toString();
                         String mobile = ArrListCustomer.get(position).get("mobile").toString();
+                        String email = ArrListCustomer.get(position).get("email").toString();
 
                         Intent i = new Intent(getBaseContext(), StatusDetailActivity.class);
                         i.putExtra("order_id", order_id);
@@ -116,6 +118,7 @@ public class UpdateStatusActivity extends Activity{
                         i.putExtra("license_plate", license_plate);
                         i.putExtra("name", name);
                         i.putExtra("mobile", mobile);
+                        i.putExtra("email", email);
                         startActivity(i);
 
                     }

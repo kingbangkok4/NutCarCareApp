@@ -7,7 +7,7 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="อัพเดทสถานะการใช้บริการ"
+        android:text="เลือกลูกค้าที่กำลังใช้บริการ"
         android:id="@+id/textView2"
         android:gravity="center"
         android:layout_alignParentTop="true"
