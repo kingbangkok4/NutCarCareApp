@@ -157,7 +157,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:text="New Button"
+        android:text="เมนูหลัก"
         android:id="@+id/btnMain"
         android:layout_gravity="center_horizontal"
         android:background="@drawable/button5"
