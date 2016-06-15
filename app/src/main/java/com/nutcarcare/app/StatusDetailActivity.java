@@ -32,7 +32,7 @@ public class StatusDetailActivity extends Activity {
     ArrayList<HashMap<String, String>> CarList = new ArrayList<HashMap<String, String>>();
     HashMap<String, String> map;
     private Spinner spinner_type_car;
-    private Button btnBack, btnCompleted, btnCancel;
+    private Button btnBack, btnCompleted, btnCancel, btnMain;
     private EditText txtName, txtMobile, txtLicensePlate, txtDate, txtStatus;
     private String[] type_care;
     private Http http = new Http();
@@ -79,6 +79,7 @@ public class StatusDetailActivity extends Activity {
         btnBack = (Button)findViewById(R.id.btnBack);
         btnCompleted = (Button)findViewById(R.id.btnCompleted);
         btnCancel = (Button)findViewById(R.id.btnCancel);
+        btnMain = (Button)findViewById(R.id.btnMain);
 
         txtName.setText(name);
         txtLicensePlate.setText(license_plate);
@@ -91,6 +92,13 @@ public class StatusDetailActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(), UpdateStatusActivity.class);
+                startActivity(i);
+            }
+        });
+        btnMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getBaseContext(), MenuActivity.class);
                 startActivity(i);
             }
         });
@@ -115,7 +123,7 @@ public class StatusDetailActivity extends Activity {
                     .setCancelable(false)
                     .setPositiveButton("ใช่", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            finish();
+                            //finish();
                             DoUpdateStatus(status_code);
                         }
                     })
