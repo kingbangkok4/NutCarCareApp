@@ -76,11 +76,16 @@ public class StatusDetailActivity extends Activity {
         txtDate = (EditText) findViewById(R.id.editTextDate);
         txtStatus = (EditText) findViewById(R.id.editTextStatus);
 
+        btnBack = (Button)findViewById(R.id.btnBack);
+        btnCompleted = (Button)findViewById(R.id.btnCompleted);
+        btnCancel = (Button)findViewById(R.id.btnCancel);
+
         txtName.setText(name);
         txtLicensePlate.setText(license_plate);
         txtMobile.setText(mobile);
         txtDate.setText(order_date);
         txtStatus.setText(common.ConvertCodeToStatus(status));
+
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
