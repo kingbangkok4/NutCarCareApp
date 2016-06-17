@@ -68,7 +68,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="ลูกค้ามารับรถ"
+        android:text="เซ็นต์ชื่อรับรถ"
         android:id="@+id/btnReceive"
         android:background="@drawable/button3"
         android:layout_above="@+id/btnExit"
