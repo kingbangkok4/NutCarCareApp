@@ -163,7 +163,7 @@ public class StatusDetailActivity extends Activity {
         final String finalMsgStatus = msgStatus;
         builder.setMessage(msgStatus).setCancelable(true).setPositiveButton("ตกลง", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        if ("ส่ง E-mail แจ้งลูกค้ารมาับรถเรียบร้อย".equals(finalMsgStatus) || "ยกเลิกการใช้บริการเรียบร้อย".equals(finalMsgStatus)) {
+                        if ("ส่ง E-mail แจ้งลูกค้ารมารับรถรียบร้อย".equals(finalMsgStatus) || "ยกเลิกการใช้บริการเรียบร้อย".equals(finalMsgStatus)) {
                            txtStatus.setText(common.ConvertCodeToStatus(status_code));
                         }
                         dialog.cancel();
